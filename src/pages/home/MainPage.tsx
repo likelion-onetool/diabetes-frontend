@@ -8,6 +8,7 @@ import TopNavBar from "../../components/TopNavBar";
 import LeftSidebar from "../../components/LeftSidebar";
 import MainBanner from "../../components/MainBanner";
 import MainPageSlider from "../../components/MainPageSlider";
+import Footer from "../../components/Footer";
 
 const MainContainer = styled.div`
   display: flex;
@@ -368,6 +369,7 @@ const MainPage = () => {
           </DetailContainer>
         </ContentContainer>
       </MainContainer>
+      <Footer />
     </>
   );
 };

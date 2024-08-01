@@ -5,6 +5,7 @@ import Input from "../../components/Input";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
+import { useForm } from "react-hook-form";
 
 const Container = styled.div`
   display: flex;
@@ -61,6 +62,11 @@ const Form = styled.form`
 `;
 
 const FindUserId = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [idSuccess, setIDSuccess] = useState<boolean>(false);
 
   const onClick = () => {
@@ -88,7 +94,11 @@ const FindUserId = () => {
         <Form>
           <UserFormGroup>
             <UserLabel>이름</UserLabel>
-            <Input type="text" placeholder="이름을 입력해주세요." />
+            <Input
+              type="text"
+              placeholder="이름을 입력해주세요."
+              {...register("name", { required: true })}
+            />
           </UserFormGroup>
           <UserFormGroup>
             <UserLabel>전화번호</UserLabel>

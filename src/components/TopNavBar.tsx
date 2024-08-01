@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const TopNavBarContainer = styled.div`
   display: flex;
@@ -39,13 +41,30 @@ const Icons = styled.div`
   justify-content: center;
 `;
 
+interface IForm {
+  search: string;
+}
+
 const TopNavBar = () => {
+  const { register, handleSubmit } = useForm<IForm>();
+  const navigate = useNavigate();
+
+  const onValid = ({ search }: IForm) => {
+    navigate(`/items?s=${search}&page=${1}`);
+  };
+
   return (
     <TopNavBarContainer>
       <Link to={"/"}>
         <Logo src="/logowhite.jpeg" alt="Logo" />
       </Link>
-      <SearchBar type="text" placeholder="어떤 도면을 찾고 계신가요?" />
+      <form onSubmit={handleSubmit(onValid)}>
+        <SearchBar
+          type="text"
+          placeholder="어떤 도면을 찾고 계신가요?"
+          {...register("search", { required: true })}
+        />
+      </form>
       <Icons>
         <Link to="/cart">
           <PiShoppingCartSimpleBold style={{ width: "22px", height: "22px" }} />

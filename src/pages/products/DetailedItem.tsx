@@ -24,7 +24,7 @@ const CategoryContainer = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #88888A;
+  color: #88888a;
 `;
 
 const FirstContainer = styled.div`
@@ -57,7 +57,7 @@ const InfoContainer = styled.div`
   gap: 14px;
   border-radius: 0px 0px 1px 0px;
   padding: 22px 0px 23px 0px;
-  border-bottom: 1px solid #88888A50;
+  border-bottom: 1px solid #88888a50;
 `;
 
 const CompanyName = styled.div`
@@ -66,7 +66,7 @@ const CompanyName = styled.div`
   font-weight: 400;
   font-size: 13.13px;
   line-height: 20px;
-  color: #88888A;
+  color: #88888a;
 `;
 
 const ItemName = styled.div`
@@ -75,14 +75,14 @@ const ItemName = styled.div`
   font-weight: 700;
   font-size: 20.8px;
   line-height: 30.8px;
-  color: #18181B;
+  color: #18181b;
 `;
 
 const PriceContainer = styled.div`
   height: 126px;
   padding: 10px 0px 30px 0px;
   gap: 10px;
-  border-bottom: 1px solid #88888A50;
+  border-bottom: 1px solid #88888a50;
 `;
 
 const OriginalPrice = styled.div`
@@ -91,7 +91,7 @@ const OriginalPrice = styled.div`
   font-weight: 400;
   font-size: 15.13px;
   line-height: 19px;
-  color: #88888A;
+  color: #88888a;
   text-decoration: line-through;
 `;
 
@@ -106,20 +106,20 @@ const SalePercentage = styled.div`
   font-weight: 800;
   font-size: 28px;
   line-height: 33px;
-  color: #FF5C00;
+  color: #ff5c00;
 `;
 
 const CurrentPrice = styled.div`
   font-weight: 700;
   font-size: 26.91px;
   line-height: 33px;
-  color: #18181B;
+  color: #18181b;
 `;
 
 const SaleTimer = styled.div`
   height: 26px;
   border-radius: 6px;
-  background-color: #FF5C00;
+  background-color: #ff5c00;
   color: white;
   display: flex;
   align-items: center;
@@ -152,7 +152,7 @@ const Tags = styled.div`
 
 const Tag = styled.div`
   padding: 5px 7px;
-  border: 1px solid #88888A;
+  border: 1px solid #88888a;
   border-radius: 11px;
   font-size: 14px;
   color: #313135;
@@ -160,7 +160,7 @@ const Tag = styled.div`
   font-weight: 400;
   font-size: 11.44px;
   line-height: 12px;
-  color: #4C4C50;
+  color: #4c4c50;
 `;
 
 const CompatibleProgramsContainer = styled.div`
@@ -172,7 +172,7 @@ const CompatibleProgramsContainer = styled.div`
 
 const CompatibleProgram = styled.div`
   padding: 4px 6px;
-  border: 1px solid #88888A;
+  border: 1px solid #88888a;
   border-radius: 4px;
   gap: 4px;
   font-size: 14px;
@@ -180,7 +180,7 @@ const CompatibleProgram = styled.div`
   font-weight: 400;
   font-size: 11.44px;
   line-height: 12px;
-  color: #4C4C50;
+  color: #4c4c50;
 `;
 
 const FileExtension = styled.div`
@@ -189,7 +189,7 @@ const FileExtension = styled.div`
   font-weight: 400;
   font-size: 13.45px;
   line-height: 14px;
-  color: #6D6D70;
+  color: #6d6d70;
 `;
 
 const ButtonsContainer = styled.div`
@@ -204,7 +204,7 @@ const BuyButton = styled.button`
   padding: 12px 152.35px 12px 152.34px;
   border: none;
   color: white;
-  background-color: #4E4EFF;
+  background-color: #4e4eff;
   cursor: pointer;
   border-radius: 8px;
 
@@ -224,7 +224,7 @@ const CartButton = styled.button`
   cursor: pointer;
   border-radius: 8px;
   gap: 8px;
-  border: 1px solid #D3D3D3;
+  border: 1px solid #d3d3d3;
   color: #313135;
 
   font-weight: 600;
@@ -233,7 +233,7 @@ const CartButton = styled.button`
   text-align: center;
 
   &:hover {
-    background-color: #D3D3D3;
+    background-color: #d3d3d3;
   }
 `;
 
@@ -261,7 +261,7 @@ const ToggleButton = styled.button`
   font-weight: 800;
   font-size: 15.13px;
   line-height: 24px;
-  color: #A2A2A4;
+  color: #a2a2a4;
 
   &:hover {
     color: #313135;
@@ -275,11 +275,11 @@ const BlueBox = styled.div`
   border-radius: 8px;
   padding: 16px 24px;
   gap: 16px;
-  background-color: #ECF9FD;
+  background-color: #ecf9fd;
   font-weight: 600;
   font-size: 13.13px;
   line-height: 20px;
-  color: #07AFE4;
+  color: #07afe4;
 `;
 
 const MainBanner = styled.div`
@@ -374,9 +374,13 @@ const DetailedItem = () => {
               <ToggleButton>상세설명</ToggleButton>
               <ToggleButton>상품문의</ToggleButton>
             </ToggleBar>
-            <BlueBox>안심하고 사용하실 수 있도록 저작권과 유의사항을 확인받은 상품이에요<br/>자세한 내용은 구매 전 꼭 확인해 주세요</BlueBox>
+            <BlueBox>
+              안심하고 사용하실 수 있도록 저작권과 유의사항을 확인받은
+              상품이에요
+              <br />
+              자세한 내용은 구매 전 꼭 확인해 주세요
+            </BlueBox>
             <MainBanner>Main Banner Content</MainBanner>
-           
           </SecondContainer>
           <ThirdContainer>
             <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>

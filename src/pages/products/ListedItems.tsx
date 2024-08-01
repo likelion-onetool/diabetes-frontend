@@ -3,6 +3,9 @@ import TopNavBar from "../../components/TopNavBar";
 import LeftSidebar from "../../components/LeftSidebar";
 import ItemCard from "../../components/ItemCard";
 import Footer from "../../components/Footer";
+import { useQuery } from "react-query";
+import { getItems } from "../../api";
+import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -102,7 +105,18 @@ const items = [
 ];
 
 const ListedItems = () => {
+  const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const search: string | null = urlParams.get("s") || "도시락";
+  const pageParam: string = urlParams.get("page") || "1";
+  const page: number = parseInt(pageParam, 10);
+
+  const { data, isLoading, error } = useQuery(["items"], () =>
+    getItems({ search, page })
+  );
   const itemCount = items.length;
+
+  console.log(data);
 
   return (
     <>

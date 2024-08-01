@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import router from "./Route";
 import { createGlobalStyle } from "styled-components";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
@@ -77,12 +78,17 @@ input{
 }
 `;
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <>
-    <GlobalStyle />
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </>
 );

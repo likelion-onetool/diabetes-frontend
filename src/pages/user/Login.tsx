@@ -101,7 +101,7 @@ const Login = () => {
   const onValid = async ({ email, password }: ILoginForm) => {
     try {
       const res = await axios.post(
-        "http://3.37.212.144:8080/users/login",
+        `${process.env.REACT_APP_Server_IP}/users/login`,
         {
           email,
           password,
@@ -117,7 +117,7 @@ const Login = () => {
   const onGoogleSubmit = async () => {
     try {
       await axios.post(
-        "http://3.37.212.144:8080/oauth2/authorization/google",
+        `${process.env.REACT_APP_Server_IP}/oauth2/authorization/google`,
         {},
         { withCredentials: true }
       );

@@ -116,7 +116,7 @@ const MainBanner = () => {
       }, 2000);
       return () => clearInterval(interval);
     }
-  }, [index, isHovered, imgs.length]);
+  }, [isHovered, imgs.length]);
 
   const handleNext = () => {
     if (isLeaving) {

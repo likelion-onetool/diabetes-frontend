@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const Option = styled.div`
   display: flex;
-  padding: 50px 0px;
+  padding: 25px 0px;
   gap: 12px;
   :last-child {
     font-weight: 700;

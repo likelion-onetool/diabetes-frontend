@@ -46,12 +46,22 @@ const LoginButton = styled(Button)`
   margin-bottom: 24px;
 `;
 
-const GoogleButton = styled(Button)`
+const GoogleButton = styled(Link)`
+  display: block;
   background-color: #ffffff;
   color: black;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   font-weight: 500;
   margin-top: 24px;
+  width: 343px;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 `;
 
 const SMSSpan = styled.span`
@@ -114,18 +124,6 @@ const Login = () => {
     }
   };
 
-  const onGoogleSubmit = async () => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_Server_IP}/oauth2/authorization/google`,
-        {},
-        { withCredentials: true }
-      );
-    } catch (error) {
-      console.error("Login failed", error);
-    }
-  };
-
   return (
     <Container>
       <Form onSubmit={handleSubmit(onValid)}>
@@ -158,7 +156,9 @@ const Login = () => {
           <SMSSpan>SNS 계정으로 로그인</SMSSpan>
         </LoginButtons>
       </Form>
-      <GoogleButton onClick={onGoogleSubmit}>
+      <GoogleButton
+        to={`${process.env.REACT_APP_Server_IP}/oauth2/authorization/google`}
+      >
         <svg
           width="21"
           height="20"

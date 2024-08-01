@@ -142,6 +142,7 @@ const ErrorMessage = styled.p`
 interface IForm {
   email: string;
   password: string;
+  passwordConfirm: string;
   birth_date: string;
   name: string;
   phone_num: string;
@@ -154,6 +155,7 @@ const Join = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IForm>();
   const [checkBoxes, setCheckBoxes] = useState<string[]>([]);
   const [allChecked, setAllChecked] = useState(false);
@@ -193,21 +195,19 @@ const Join = () => {
 
   const onValid = async (data: IForm) => {
     try {
-      // await axios.post(`${process.env.REACT_APP_Server_IP}/users/signup`, {
-      //   email,
-      //   password,
-      //   birth_date,
-      //   name,
-      //   phone_num,
-      //   field,
-      //   isNative,
-      // });
+      if (data.password !== data.passwordConfirm) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
 
       if (data.isNative === "korean") {
         data.isNative = true;
       } else {
         data.isNative = false;
       }
+
+      await axios.post(`${process.env.REACT_APP_Server_IP}/users/signup`, data);
+
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -219,6 +219,7 @@ const Join = () => {
       <SnsWrapper>
         <span>SNS 계정으로 가입하기</span>
         <GoogleButton>
+          {" "}
           <svg
             width="21"
             height="20"
@@ -289,7 +290,18 @@ const Join = () => {
           {errors.password && (
             <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
-          <Input type="password" placeholder="비밀번호 확인" />
+          <Input
+            type="password"
+            placeholder="비밀번호 확인"
+            {...register("passwordConfirm", {
+              required: "비밀번호 확인은 필수 입력 항목입니다.",
+              validate: (value) =>
+                value === watch("password") || "비밀번호가 일치하지 않습니다.",
+            })}
+          />
+          {errors.passwordConfirm && (
+            <ErrorMessage>{errors.passwordConfirm.message}</ErrorMessage>
+          )}
         </Wrapper>
 
         <Wrapper>

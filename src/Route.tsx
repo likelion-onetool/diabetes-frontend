@@ -15,7 +15,6 @@ import Join from "./pages/user/Join";
 import Profile from "./pages/user/Profile";
 import ErrorComponent from "./components/ErrorComponent";
 import MainPage from "./pages/home/MainPage";
-import SharedLayout from "./pages/products/components/SharedLayout";
 import AllItemsPage from "./pages/products/AllItemsPage";
 
 const router = createBrowserRouter([
@@ -25,22 +24,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/items",
-    element: <SharedLayout />,
+    element: <AllItemsPage />,
     children: [
       {
-        path: "/items/all",
+        path: ":id",
         element: <AllItemsPage />,
-      },
-      {
-        path: "/items/category/:category",
-      },
-      {
-        path: "/items/search",
       },
     ],
   },
   {
-    path: "/items/:id",
+    path: "/items/detail/:id",
     element: <DetailedItem />,
   },
   // home, products page

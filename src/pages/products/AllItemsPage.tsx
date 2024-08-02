@@ -1,8 +1,29 @@
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { getAllItems, IItemsProp } from "../../api";
+import { getAllItems, getCategoryItems, getItems, IItemsProp } from "../../api";
 import { useState } from "react";
 import ItemCard from "../../components/ItemCard";
+import LeftSidebar from "../../components/LeftSidebar";
+import TopNavBar from "../../components/TopNavBar";
+import Footer from "../../components/Footer";
+import { useLocation, useParams } from "react-router-dom";
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex: 1;
+`;
+
+const RightContainer = styled.div`
+  width: 100%;
+  padding: 0 40px;
+  overflow-x: hidden;
+`;
 
 const TextContainer = styled.div`
   font-weight: 700;
@@ -49,25 +70,57 @@ const ItemsGrid = styled.div`
 `;
 
 const AllItemsPage = () => {
-  const [page, setPage] = useState(1);
+  const location = useLocation();
+  const category = new URLSearchParams(location.search).get("category");
+  const search = new URLSearchParams(location.search).get("s");
+  const pageParam = new URLSearchParams(location.search).get("page") || "1";
+  const page = parseInt(pageParam, 10);
+
+  console.log(search);
+
   const { data, isLoading, error } = useQuery<IItemsProp>(
-    ["items", "all", page],
-    () => getAllItems(page)
+    search
+      ? ["items", "search", search, page]
+      : category
+      ? ["items", "category", category, page]
+      : ["items", "all", page],
+    () => {
+      if (search) return getItems({ search, page });
+      if (category) return getCategoryItems({ category, page });
+      return getAllItems(page);
+    }
   );
+
+  if (isLoading) return <div>Loading...</div>;
+
+  const pageTitle = search
+    ? `검색 결과: ${search}`
+    : category
+    ? `카테고리: ${category}`
+    : "전체 아이템 목록";
 
   return (
     <>
-      <TextContainer>전체 아이템 목록</TextContainer>
-      <FilterContainer>
-        <FilterButton>가격순 ▾</FilterButton>
-        <FilterButton>판매순 ▾</FilterButton>
-        <FilterButton>날짜순 ▾</FilterButton>
-      </FilterContainer>
-      <ItemsGrid>
-        {data?.content.map((item) => (
-          <ItemCard key={item.diabetes.id} item={item.diabetes} />
-        ))}
-      </ItemsGrid>
+      <TopNavBar />
+      <MainContainer>
+        <ContentContainer>
+          <LeftSidebar />
+          <RightContainer>
+            <TextContainer>{pageTitle}</TextContainer>
+            <FilterContainer>
+              <FilterButton>가격순 ▾</FilterButton>
+              <FilterButton>판매순 ▾</FilterButton>
+              <FilterButton>날짜순 ▾</FilterButton>
+            </FilterContainer>
+            <ItemsGrid>
+              {data?.content.map((item) => (
+                <ItemCard key={item.diabetes.id} item={item.diabetes} />
+              ))}
+            </ItemsGrid>
+          </RightContainer>
+        </ContentContainer>
+        <Footer />
+      </MainContainer>
     </>
   );
 };

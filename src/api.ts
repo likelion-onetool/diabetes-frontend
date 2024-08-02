@@ -8,12 +8,12 @@ interface IGetItems {
 // 검색어로 검색
 export async function getItems({ search, page }: IGetItems) {
   try {
-    const data = await axios.get(
+    const res = await axios.get(
       `${
         process.env.REACT_APP_Server_IP
       }/diabetes?s=${search}&page=${page}&size=${6}`
     );
-    return data;
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -59,12 +59,23 @@ interface IGetCategoryItems {
 //카테고리별 음식 조회
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
-    const data = await axios.get(
+    const res = await axios.get(
       `${
         process.env.REACT_APP_Server_IP
-      }/diabetes/c?category=${category}&page=${page}}&size=${6}`
+      }/diabetes/c?category=${category}&page=${page}&size=${6}`
     );
-    return data;
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getDetailItem(id: number) {
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_Server_IP}/food/${id}`
+    );
+    return res.data;
   } catch (error) {
     console.log(error);
   }

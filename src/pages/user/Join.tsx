@@ -195,22 +195,42 @@ const Join = () => {
 
   const onValid = async (data: IForm) => {
     try {
+      // 비밀번호 일치 확인
       if (data.password !== data.passwordConfirm) {
         alert("비밀번호가 일치하지 않습니다.");
         return;
       }
 
-      if (data.isNative === "korean") {
-        data.isNative = true;
-      } else {
-        data.isNative = false;
-      }
+      // 'isNative' 변환
+      const isNative = data.isNative === "korean" ? true : false;
 
-      await axios.post(`${process.env.REACT_APP_Server_IP}/users/signup`, data);
+      // 전송할 데이터 객체 생성
+      const payload = {
+        email: data.email,
+        password: data.password,
+        birthDate: data.birth_date,
+        name: data.name,
+        phoneNum: data.phone_num,
+        development_field: data.field,
+        isNative: isNative,
+      };
 
-      console.log(data);
+      console.log(payload);
+
+      // 데이터 전송
+      await axios.post(
+        `${process.env.REACT_APP_Server_IP}/users/signup`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Data submitted successfully:", payload);
     } catch (error) {
-      console.log(error);
+      console.error("Error submitting data:", error);
     }
   };
 

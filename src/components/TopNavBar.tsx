@@ -17,17 +17,19 @@ const TopNavBarContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 150px;
+  width: 220px;
   height: auto;
+  margin-left: -15px;
 `;
 
 const SearchBar = styled.input`
-  width: 812px;
+  width: 832px;
   height: 46px;
   border-radius: 8px;
   border: 1px solid #e8e8e8;
   padding: 26px;
   font-size: 16px;
+  margin-left: -30px;
 `;
 
 const Icons = styled.div`
@@ -56,7 +58,7 @@ const TopNavBar = () => {
   return (
     <TopNavBarContainer>
       <Link to={"/"}>
-        <Logo src="/logowhite.jpeg" alt="Logo" />
+        <Logo src="/onetooldiabeteslogo.jpg" alt="Logo" />
       </Link>
       <form onSubmit={handleSubmit(onValid)}>
         <SearchBar

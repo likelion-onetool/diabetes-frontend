@@ -4,7 +4,7 @@ import LeftSidebar from "../../components/LeftSidebar";
 import ItemCard from "../../components/ItemCard";
 import Footer from "../../components/Footer";
 import { useQuery } from "react-query";
-import { getAllItems, getCategoryItems, getItems } from "../../api";
+import { getItems } from "../../api";
 import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
@@ -99,33 +99,16 @@ const items = [
 const ListedItems = () => {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
-  const search: string | null = urlParams.get("s");
-  const category: string | null = urlParams.get("category");
+  const search: string | null = urlParams.get("s") || "도시락";
   const pageParam: string = urlParams.get("page") || "1";
   const page: number = parseInt(pageParam, 10);
 
-  // 어떤 API 요청을 할지 결정하는 로직
-  const { data, isLoading, error } = useQuery(
-    ["items", search, category, page],
-    () => {
-      if (search) {
-        return getItems({ search, page });
-      } else if (category) {
-        return getCategoryItems({ category, page });
-      } else {
-        return getAllItems();
-      }
-    }
+  const { data, isLoading, error } = useQuery(["items"], () =>
+    getItems({ search, page })
   );
+  const itemCount = items.length;
 
-  //const itemCount = data ? data.length : 0; // 데이터에서 아이템 개수 추출
-
-  // 페이지에 따라 다른 제목을 설정하는 로직
-  const pageTitle = search
-    ? `검색 결과: ${search}`
-    : category
-    ? `카테고리: ${category}`
-    : "전체 아이템 목록";
+  console.log(data);
 
   return (
     <>
@@ -134,17 +117,18 @@ const ListedItems = () => {
         <ContentContainer>
           <LeftSidebar />
           <RightContainer>
-            <TextContainer>{pageTitle}</TextContainer>
+            <TextContainer>카테고리 이름</TextContainer>
             <FilterContainer>
+              <FilterButton>MD추천순 ▾</FilterButton>
+              <FilterButton>인기순 ▾</FilterButton>
+              <FilterButton>최신순 ▾</FilterButton>
               <FilterButton>가격순 ▾</FilterButton>
-              <FilterButton>판매순 ▾</FilterButton>
-              <FilterButton>날짜순 ▾</FilterButton>
             </FilterContainer>
-            {/* <ItemsCount>총 {itemCount}개</ItemsCount> */}
+            <ItemsCount>총 {itemCount}개</ItemsCount>
             <ItemsGrid>
-              {/* {data?.map((item) => (
+              {items.map((item) => (
                 <ItemCard key={item.id} item={item} />
-              ))} */}
+              ))}
             </ItemsGrid>
           </RightContainer>
         </ContentContainer>

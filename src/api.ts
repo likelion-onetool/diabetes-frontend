@@ -9,7 +9,9 @@ interface IGetItems {
 export async function getItems({ search, page }: IGetItems) {
   try {
     const data = await axios.get(
-      `${process.env.REACT_APP_Server_IP}/food?s=${search}&page=${page}`
+      `${
+        process.env.REACT_APP_Server_IP
+      }/diabetes?s=${search}&page=${page}&size=${6}`
     );
     return data;
   } catch (error) {
@@ -17,11 +19,33 @@ export async function getItems({ search, page }: IGetItems) {
   }
 }
 
+interface IContent {
+  diabetes: {
+    calorie: string;
+    capacity: string;
+    category: string;
+    diabetesDetails: string;
+    diabetesDetailsImg: string;
+    diabetesImg: string;
+    diabetesName: string;
+    hits: boolean;
+    id: number;
+    standardPrice: number;
+    storage: string;
+  };
+}
+
+export interface IItemsProp {
+  content: IContent[];
+}
+
 // 전체 카테고리
-export async function getAllItems() {
+export async function getAllItems(page: number) {
   try {
-    const data = await axios.get(`${process.env.REACT_APP_Server_IP}/food/all`);
-    return data;
+    const res = await axios.get(
+      `${process.env.REACT_APP_Server_IP}/diabetes/all?page=${page}&size=${8}`
+    );
+    return res.data;
   } catch (error) {
     console.log(error);
   }
@@ -36,7 +60,9 @@ interface IGetCategoryItems {
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
     const data = await axios.get(
-      `${process.env.REACT_APP_Server_IP}/food?category=${category}&page=${page}`
+      `${
+        process.env.REACT_APP_Server_IP
+      }/diabetes/c?category=${category}&page=${page}}&size=${6}`
     );
     return data;
   } catch (error) {

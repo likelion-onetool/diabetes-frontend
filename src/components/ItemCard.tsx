@@ -49,9 +49,17 @@ const TagBox = styled.h3`
 `;
 
 interface IItem {
+  calorie: string;
+  capacity: string;
+  category: string;
+  diabetesDetails: string;
+  diabetesDetailsImg: string;
+  diabetesImg: string;
+  diabetesName: string;
+  hits: boolean;
   id: number;
-  name: string;
-  image: string;
+  standardPrice: number;
+  storage: string;
 }
 
 interface ItemCardProps {
@@ -62,11 +70,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
   return (
     <ItemCardContainer>
       <Link to={`/items/${item.id}`}>
-        <ItemImage src={item.image} alt={item.name} />
+        <ItemImage src={item.diabetesImg} alt={item.diabetesName} />
         <BelowContainer>
-          <BrandName>작가명</BrandName>
-          <ItemName>{item.name}</ItemName>
-          <PriceName>가격</PriceName>
+          <ItemName>{item.diabetesName}</ItemName>
+          <PriceName>{item.standardPrice}원</PriceName>
           <TagBox></TagBox>
         </BelowContainer>
       </Link>

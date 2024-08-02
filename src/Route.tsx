@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import ListedItems from "./pages/products/ListedItems";
+import ListedItems from "./pages/products/AllItemsPage";
 import DetailedItem from "./pages/products/DetailedItem";
 import Login from "./pages/user/Login";
 import ShoppingCart from "./pages/pay/ShoppingCart";
@@ -15,6 +15,8 @@ import Join from "./pages/user/Join";
 import Profile from "./pages/user/Profile";
 import ErrorComponent from "./components/ErrorComponent";
 import MainPage from "./pages/home/MainPage";
+import SharedLayout from "./pages/products/components/SharedLayout";
+import AllItemsPage from "./pages/products/AllItemsPage";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/items",
-    element: <ListedItems />,
+    element: <SharedLayout />,
+    children: [
+      {
+        path: "/items/all",
+        element: <AllItemsPage />,
+      },
+      {
+        path: "/items/category/:category",
+      },
+      {
+        path: "/items/search",
+      },
+    ],
   },
   {
     path: "/items/:id",

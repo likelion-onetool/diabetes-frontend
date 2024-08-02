@@ -385,9 +385,9 @@ const DetailedItem = () => {
           <ThirdContainer>
             <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>
             <SuggestionsGrid>
-              {otherItems.map((item) => (
+              {/* {otherItems.map((item) => (
                 <ItemCard key={item.id} item={item} />
-              ))}
+              ))} */}
             </SuggestionsGrid>
           </ThirdContainer>
         </MainContainer>

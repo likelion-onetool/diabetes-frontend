@@ -123,7 +123,6 @@ const Login = () => {
       let accessToken = res.headers["authorization"];
       console.log(accessToken);
 
-      // const token = res.headers // 응답 헤더에서 토큰 가져오기
       // if (token) {
       //   sessionStorage.setItem("accessToken", token); // sessionStorage에 토큰 저장
       //   console.log("Access Token:", token);

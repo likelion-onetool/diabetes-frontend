@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
@@ -31,41 +31,35 @@ const CategoryHeader = styled.h2`
 
 const CategoryContainer = styled.div`
   padding: 0px 0px 30px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
 `;
 
 const MainCategoryContainer = styled.div`
   padding: 0px;
 `;
 
-
-const Category = styled.div<CategoryProps>`
+const Category = styled(Link)<CategoryProps>`
   border-radius: 13px;
   padding: 8px;
-
+  display: block;
   font-weight: 600;
   font-size: 15.23px;
   line-height: 30px;
   letter-spacing: 0.15px;
   padding-left: 15px;
- margin-left: -7px;
-  margin-bottom: 20px;
+  margin-left: -7px;
   cursor: pointer;
 
   &:hover {
-  transition:0.5s;
-    background-color: #5CE65C;
+    transition: 0.5s;
+    background-color: #5ce65c;
   }
 `;
 
 const LeftSidebar = () => {
-  const navigate = useNavigate();
   const [categoryToggle, setCategoryToggle] = useState<boolean>(true);
-
-  const handleCategoryClick = (index: number) => {
-    if (index === 0) {
-      navigate("/items");
-    }
-  };
 
   return (
     <SidebarContainer>
@@ -78,36 +72,33 @@ const LeftSidebar = () => {
         </CategoryHeader>
         <CategoryContainer>
           <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(0)}>
+            <Category to={"/items/all"} active={false}>
               전체
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(1)}>
+            <Category to={`/items/category`} active={false}>
               메인요리/반찬
             </Category>
-            
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(2)}>
+            <Category to={`/items/category`} active={false}>
               국/탕/찌개
             </Category>
-        
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(3)}>
+            <Category to={`/items/category`} active={false}>
               밥/면/죽
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(4)}>
+            <Category to={`/items/category`} active={false}>
               간편식/샐러드
             </Category>
-           
           </MainCategoryContainer>
         </CategoryContainer>
       </HorizontalBorder>

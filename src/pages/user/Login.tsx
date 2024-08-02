@@ -46,7 +46,7 @@ const LoginButton = styled(Button)`
   margin-bottom: 24px;
 `;
 
-const GoogleButton = styled(Link)`
+const GoogleButton = styled.a`
   display: block;
   background-color: #ffffff;
   color: black;
@@ -109,6 +109,8 @@ const Login = () => {
   const { register, handleSubmit } = useForm<ILoginForm>();
 
   const onValid = async ({ email, password }: ILoginForm) => {
+    console.log(email, password);
+
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_Server_IP}/users/login`,
@@ -116,11 +118,20 @@ const Login = () => {
           email,
           password,
         },
-        { withCredentials: true }
+        { withCredentials: true } // 쿠키를 포함하여 요청을 보냄
       );
-      console.log(res);
+      let accessToken = res.headers["authorization"];
+      console.log(accessToken);
+
+      // const token = res.headers // 응답 헤더에서 토큰 가져오기
+      // if (token) {
+      //   sessionStorage.setItem("accessToken", token); // sessionStorage에 토큰 저장
+      //   console.log("Access Token:", token);
+      // } else {
+      //   console.log("토큰을 가져오지 못했습니다.");
+      // }
     } catch (error) {
-      console.error("Login failed", error);
+      console.error("로그인 실패", error); // 로그인 실패 시 에러 출력
     }
   };
 
@@ -157,7 +168,7 @@ const Login = () => {
         </LoginButtons>
       </Form>
       <GoogleButton
-        to={`${process.env.REACT_APP_Server_IP}/oauth2/authorization/google`}
+        href={`${process.env.REACT_APP_Server_IP}/oauth2/authorization/google`}
       >
         <svg
           width="21"

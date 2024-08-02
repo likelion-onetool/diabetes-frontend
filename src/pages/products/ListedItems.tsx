@@ -20,13 +20,12 @@ const ContentContainer = styled.div`
 
 const RightContainer = styled.div`
   width: 100%;
-  margin-left: 40px;
+  padding: 0 40px;
+  overflow-x: hidden;
 `;
 
 const TextContainer = styled.div`
-  width: 100%;
   height: 60px;
-  padding: 0px 5px 0px 0px;
   font-weight: 700;
   font-size: 24px;
   line-height: 36px;
@@ -36,10 +35,7 @@ const TextContainer = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  width: 80%;
-  height: 30px;
   margin-left: 30px;
-  padding: 0px 5px 0px 0px;
   display: flex;
   gap: 0.5rem;
 `;
@@ -65,11 +61,8 @@ const FilterButton = styled.button`
 `;
 
 const ItemsCount = styled.div`
-  width: 80%;
-  height: 20px;
-  padding: 0px 5px 0px 0px;
   margin-left: 30px;
-  margin-top: 15px;
+  padding: 16px 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -80,9 +73,8 @@ const ItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  width: 80%;
   margin-top: 0px;
-  margin-left: 13px;
+  margin-left: 30px;
 `;
 
 const items = [

@@ -3,40 +3,38 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const ItemCardContainer = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 292px;
-  height: 340px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 const ItemImage = styled.img`
-  width: 290px;
-  height: 200px;
+  width: 100%;
   border-radius: 6.65px;
-  border: 1px solid #EEEEEE;
+  border: 1px solid #eeeeee;
+  object-fit: cover;
+  object-position: center;
 `;
 
 const BelowContainer = styled.div`
   padding: 12px 6px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 `;
 
 const BrandName = styled.h3`
   font-weight: 400;
   font-size: 11.25px;
   line-height: 12px;
-  color: #A0A0A0;
+  color: #a0a0a0;
 `;
 
 const ItemName = styled.h3`
   font-weight: 400;
   font-size: 15px;
   line-height: 21px;
-  color: #1A1A1A;
+  color: #1a1a1a;
 `;
 
 const PriceName = styled.h3`

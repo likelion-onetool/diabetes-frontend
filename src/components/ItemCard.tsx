@@ -69,7 +69,7 @@ interface ItemCardProps {
 const ItemCard = ({ item }: ItemCardProps) => {
   return (
     <ItemCardContainer>
-      <Link to={`/items/${item.id}`}>
+      <Link to={`/items/detail/${item.id}`}>
         <ItemImage src={item.diabetesImg} alt={item.diabetesName} />
         <BelowContainer>
           <ItemName>{item.diabetesName}</ItemName>

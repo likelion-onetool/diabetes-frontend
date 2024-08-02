@@ -3,6 +3,9 @@ import styled from "styled-components";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
 import ItemCard from "../../components/ItemCard";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { getDetailItem } from "../../api";
 
 const OuterContainer = styled.div`
   display: flex;
@@ -318,12 +321,11 @@ const SuggestionsGrid = styled.div`
 const DetailedItem = () => {
   const tags = ["건축", "인테리어 도면"];
   const compatiblePrograms = ["SketchUp", "AutoCAD"];
-  const otherItems = [
-    { id: 1, name: "Other Item 1", image: "https://via.placeholder.com/150" },
-    { id: 2, name: "Other Item 2", image: "https://via.placeholder.com/150" },
-    { id: 3, name: "Other Item 3", image: "https://via.placeholder.com/150" },
-    { id: 4, name: "Other Item 4", image: "https://via.placeholder.com/150" },
-  ];
+  const params = useParams();
+
+  const { data, isLoading, error } = useQuery(["detail", params.id], () =>
+    getDetailItem(Number(params.id))
+  );
 
   return (
     <>

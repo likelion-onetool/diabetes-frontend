@@ -72,31 +72,43 @@ const LeftSidebar = () => {
         </CategoryHeader>
         <CategoryContainer>
           <MainCategoryContainer>
-            <Category to={"/items/all"} active={false}>
+            <Category to={"/items"} active={false}>
               전체
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={`/items/category`} active={false}>
+            <Category
+              to={`/items/c?category=${"category1"}&page=${1}`}
+              active={false}
+            >
               메인요리/반찬
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={`/items/category`} active={false}>
+            <Category
+              to={`/items/c?category=${"category2"}&page=${1}`}
+              active={false}
+            >
               국/탕/찌개
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={`/items/category`} active={false}>
+            <Category
+              to={`/items/c?category=${"category3"}&page=${1}`}
+              active={false}
+            >
               밥/면/죽
             </Category>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
-            <Category to={`/items/category`} active={false}>
+            <Category
+              to={`/items/c?category=${"category4"}&page=${1}`}
+              active={false}
+            >
               간편식/샐러드
             </Category>
           </MainCategoryContainer>

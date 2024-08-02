@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 
 const TopNavBarContainer = styled.div`
   display: flex;
@@ -14,6 +13,7 @@ const TopNavBarContainer = styled.div`
   color: black;
   padding: 4px 40px;
   border: 1px solid #e8e8e8;
+  margin-bottom: 2rem;
 `;
 
 const Logo = styled.img`

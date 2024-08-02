@@ -1,51 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const ItemCardContainer = styled.div`
+const ItemCardContainer = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* 그림자가 카드 안으로 들어가지 않게 설정 */
+  border-radius: 6.65px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+  transition: box-shadow 0.3s ease; /* 그림자 전환 */
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 */
+  }
 `;
 
-const ItemImage = styled.img`
+const ItemImage = styled(motion.img)`
   width: 100%;
+  height: 200px;
   border-radius: 6.65px;
   border: 1px solid #eeeeee;
   object-fit: cover;
   object-position: center;
+  transition: transform 0.3s ease; /* 이미지 변환 전환 */
+
+  &:hover {
+    transform: scale(1.05); /* 이미지 확대 */
+  }
 `;
 
 const BelowContainer = styled.div`
-  padding: 12px 6px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
+  background-color: #fff; /* 카드 배경색 */
 `;
 
-const BrandName = styled.h3`
-  font-weight: 400;
-  font-size: 11.25px;
-  line-height: 12px;
+const BrandName = styled.h4`
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
   color: #a0a0a0;
+  margin: 0;
 `;
 
 const ItemName = styled.h3`
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 21px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
   color: #1a1a1a;
+  margin: 0;
+  text-transform: capitalize;
 `;
 
 const PriceName = styled.h3`
-  font-weight: 500;
-  font-size: 15.38px;
-  line-height: 16px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
   color: #000000;
+  margin: 0;
 `;
 
-const TagBox = styled.h3`
+const TagBox = styled.div`
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666;
   margin: 0.5rem 0;
+`;
+
+const PlaceholderContainer = styled.div`
+  width: 100%;
+  height: 200px; /* 대체 이미지 높이와 일치 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0a0a0;
+  font-size: 16px;
+  text-align: center;
+  background: #f0f0f0; /* 대체 이미지 배경색 */
+  border-radius: 6.65px;
 `;
 
 interface IItem {
@@ -66,14 +106,33 @@ interface ItemCardProps {
   item: IItem;
 }
 
+const formatPrice = (price: number) => {
+  return price.toLocaleString(); // 천 단위 구분 기호 추가
+};
+
 const ItemCard = ({ item }: ItemCardProps) => {
+  const [imgError, setImgError] = useState(false);
+
   return (
-    <ItemCardContainer>
+    <ItemCardContainer
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to={`/items/detail/${item.id}`}>
-        <ItemImage src={item.diabetesImg} alt={item.diabetesName} />
+        <ItemImage
+          src={
+            imgError
+              ? "https://via.placeholder.com/300x200?text=Image+Not+Available"
+              : item.diabetesImg
+          }
+          onError={() => setImgError(true)}
+        />
+
         <BelowContainer>
+          <BrandName>{item.category}</BrandName>
           <ItemName>{item.diabetesName}</ItemName>
-          <PriceName>{item.standardPrice}원</PriceName>
+          <PriceName>{formatPrice(item.standardPrice)} 원</PriceName>
           <TagBox></TagBox>
         </BelowContainer>
       </Link>

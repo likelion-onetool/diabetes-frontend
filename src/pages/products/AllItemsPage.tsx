@@ -22,7 +22,6 @@ const ContentContainer = styled.div`
 const RightContainer = styled.div`
   width: 100%;
   padding: 0 40px;
-  overflow-x: hidden;
 `;
 
 const TextContainer = styled.div`

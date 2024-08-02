@@ -24,8 +24,9 @@ const CategoryHeader = styled.h2`
   justify-content: space-between;
   padding: 24px 6px;
   font-weight: 600;
-  font-size: 15.25px;
+  font-size: 17.25px;
   line-height: 16px;
+  margin-bottom: 10px;
 `;
 
 const CategoryContainer = styled.div`
@@ -36,40 +37,23 @@ const MainCategoryContainer = styled.div`
   padding: 0px;
 `;
 
-const SubCategoryContainer = styled.div`
-  padding: 0px;
-`;
 
 const Category = styled.div<CategoryProps>`
-  border-radius: 4px;
+  border-radius: 13px;
   padding: 8px;
 
   font-weight: 600;
-  font-size: 13.23px;
-  line-height: 21px;
+  font-size: 15.23px;
+  line-height: 30px;
   letter-spacing: 0.15px;
-
+  padding-left: 15px;
+ margin-left: -7px;
+  margin-bottom: 20px;
   cursor: pointer;
 
   &:hover {
-    background-color: #d3d3d3;
-  }
-`;
-
-const SubCategory = styled.div`
-  border-radius: 4px;
-  padding: 7px 10px;
-
-  font-weight: 400;
-  font-size: 13.02px;
-  line-height: 21px;
-  letter-spacing: 0.15px;
-  color: #313135;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: #d3d3d3;
+  transition:0.5s;
+    background-color: #5CE65C;
   }
 `;
 
@@ -82,8 +66,6 @@ const LeftSidebar = () => {
       navigate("/items");
     }
   };
-
-  const handleSubCategoryClick = () => {};
 
   return (
     <SidebarContainer>
@@ -103,67 +85,29 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category active={false} onClick={() => handleCategoryClick(1)}>
-              건축도면
+              메인요리/반찬
             </Category>
-            <SubCategoryContainer>
-              <SubCategory onClick={handleSubCategoryClick}>- 주거</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 상업</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 공공</SubCategory>
-            </SubCategoryContainer>
+            
           </MainCategoryContainer>
 
           <MainCategoryContainer>
             <Category active={false} onClick={() => handleCategoryClick(2)}>
-              토목도면
+              국/탕/찌개
             </Category>
-            <SubCategoryContainer>
-              <SubCategory onClick={handleSubCategoryClick}>- 도로</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 교통</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 터널</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>
-                - 댐/수자원
-              </SubCategory>
-            </SubCategoryContainer>
+        
           </MainCategoryContainer>
 
           <MainCategoryContainer>
             <Category active={false} onClick={() => handleCategoryClick(3)}>
-              인테리어 도면
+              밥/면/죽
             </Category>
-            <SubCategoryContainer>
-              <SubCategory onClick={handleSubCategoryClick}>- 주거</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 상업</SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>
-                - 가구/집기
-              </SubCategory>
-            </SubCategoryContainer>
           </MainCategoryContainer>
 
           <MainCategoryContainer>
             <Category active={false} onClick={() => handleCategoryClick(4)}>
-              기계 도면
+              간편식/샐러드
             </Category>
-            <SubCategoryContainer>
-              <SubCategory onClick={handleSubCategoryClick}>
-                - 기계부품
-              </SubCategory>
-              <SubCategory onClick={handleSubCategoryClick}>- 설비</SubCategory>
-            </SubCategoryContainer>
-          </MainCategoryContainer>
-
-          <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(5)}>
-              전기 도면
-            </Category>
-            <SubCategoryContainer>
-              <SubCategory onClick={handleSubCategoryClick}>- 전기</SubCategory>
-            </SubCategoryContainer>
-          </MainCategoryContainer>
-
-          <MainCategoryContainer>
-            <Category active={false} onClick={() => handleCategoryClick(6)}>
-              기타 도면
-            </Category>
+           
           </MainCategoryContainer>
         </CategoryContainer>
       </HorizontalBorder>

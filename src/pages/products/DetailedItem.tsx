@@ -326,6 +326,7 @@ const DetailedItem = () => {
   const { data, isLoading, error } = useQuery(["detail", params.id], () =>
     getDetailItem(Number(params.id))
   );
+  console.log(data);
 
   return (
     <>

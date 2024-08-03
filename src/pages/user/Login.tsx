@@ -121,14 +121,13 @@ const Login = () => {
         { withCredentials: true } // 쿠키를 포함하여 요청을 보냄
       );
       let accessToken = res.headers["authorization"];
-      console.log(accessToken);
 
-      // if (token) {
-      //   sessionStorage.setItem("accessToken", token); // sessionStorage에 토큰 저장
-      //   console.log("Access Token:", token);
-      // } else {
-      //   console.log("토큰을 가져오지 못했습니다.");
-      // }
+      if (accessToken) {
+        sessionStorage.setItem("accessToken", accessToken); // sessionStorage에 토큰 저장
+        console.log("Access Token:", accessToken);
+      } else {
+        console.log("토큰을 가져오지 못했습니다.");
+      }
     } catch (error) {
       console.error("로그인 실패", error); // 로그인 실패 시 에러 출력
     }

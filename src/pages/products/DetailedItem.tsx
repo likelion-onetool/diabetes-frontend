@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
-import ItemCard from "../../components/ItemCard";
+import ItemCard, { formatPrice } from "../../components/ItemCard";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetailItem } from "../../api";
+import axios from "axios";
 
 const OuterContainer = styled.div`
   display: flex;
@@ -32,13 +33,12 @@ const CategoryContainer = styled.div`
 
 const FirstContainer = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
-  gap: 2rem;
+  gap: 8rem;
 `;
 
 const ImageContainer = styled.div`
-  width: 780px;
-  height: 595px;
   border: 1px solid #ccc;
   display: flex;
   align-items: center;
@@ -64,7 +64,6 @@ const InfoContainer = styled.div`
 `;
 
 const CompanyName = styled.div`
-  height: 20px;
   gap: 4px;
   font-weight: 400;
   font-size: 13.13px;
@@ -73,7 +72,6 @@ const CompanyName = styled.div`
 `;
 
 const ItemName = styled.div`
-  height: 38px;
   padding: 7px 0px 0px 0px;
   font-weight: 700;
   font-size: 20.8px;
@@ -242,7 +240,6 @@ const CartButton = styled.button`
 
 const SecondContainer = styled.div`
   width: 80%;
-  height: 1000px;
   padding: 1rem;
   margin: 50px 0;
   display: flex;
@@ -274,9 +271,9 @@ const ToggleButton = styled.button`
 
 const BlueBox = styled.div`
   width: 1200px;
-  height: 72px;
   border-radius: 8px;
   padding: 16px 24px;
+  margin-bottom: 24px;
   gap: 16px;
   background-color: #ecf9fd;
   font-weight: 600;
@@ -285,117 +282,114 @@ const BlueBox = styled.div`
   color: #07afe4;
 `;
 
-const MainBanner = styled.div`
-  width: 100%;
-  margin: 50px 0px;
-  height: 500px;
-  border: 1px solid red;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #004d40;
-  font-size: 24px;
-  font-weight: bold;
+const MainImg = styled.img`
+  width: 700px;
+  height: 700px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: center;
 `;
 
-const ThirdContainer = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-const SuggestionsTitle = styled.div`
-  font-weight: 700;
-  font-size: 20.63px;
-  line-height: 33px;
-  color: #313135;
-`;
-
-const SuggestionsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-`;
+interface IDetailItem {
+  calorie: string;
+  capacity: string;
+  category: string;
+  diabetesDetails: string;
+  diabetesDetailsImg: string;
+  diabetesImg: string;
+  diabetesName: string;
+  hits: boolean;
+  id: number;
+  standardPrice: number;
+  storage: string;
+}
 
 const DetailedItem = () => {
+  const navigate = useNavigate();
   const tags = ["건축", "인테리어 도면"];
   const compatiblePrograms = ["SketchUp", "AutoCAD"];
   const params = useParams();
 
-  const { data, isLoading, error } = useQuery(["detail", params.id], () =>
-    getDetailItem(Number(params.id))
+  const { data, isLoading, error } = useQuery<IDetailItem>(
+    ["detail", params.id],
+    () => getDetailItem(Number(params.id))
   );
-  console.log(data);
+
+  const onClick = async (id: number) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_Server_IP}/api/cart/add/${id}`
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <TopNavBar />
-      <OuterContainer>
-        <MainContainer>
-          <CategoryContainer>건축-주거 | 인테리어-주거</CategoryContainer>
-          <FirstContainer>
-            <ImageContainer>
-              <img src="" alt="Big Item" />
-            </ImageContainer>
-            <RightContainer>
-              <CompanyName>ONETOOL 회사명</CompanyName>
-              <ItemName>건축 도면</ItemName>
-              <PriceContainer>
-                <OriginalPrice>80000원</OriginalPrice>
-                <PriceBox>
-                  <SalePercentage>30%</SalePercentage>
-                  <CurrentPrice>56000원</CurrentPrice>
-                </PriceBox>
-                <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
-              </PriceContainer>
-              <InfoContainer>
-                <TextBox>상품정보</TextBox>
-                <InnerTextBox>태그</InnerTextBox>
-                <Tags>
-                  {tags.map((tag, index) => (
-                    <Tag key={index}>{tag}</Tag>
-                  ))}
-                </Tags>
-                <InnerTextBox>파일 확장자</InnerTextBox>
-                <FileExtension>skp / dwg</FileExtension>
-                <InnerTextBox>사용 가능 프로그램</InnerTextBox>
-                <CompatibleProgramsContainer>
-                  {compatiblePrograms.map((program, index) => (
-                    <CompatibleProgram key={index}>{program}</CompatibleProgram>
-                  ))}
-                </CompatibleProgramsContainer>
-              </InfoContainer>
-              <ButtonsContainer>
-                <BuyButton>구매하기</BuyButton>
-                <CartButton>장바구니</CartButton>
-              </ButtonsContainer>
-            </RightContainer>
-          </FirstContainer>
-          <SecondContainer>
-            <ToggleBar>
-              <ToggleButton>상세설명</ToggleButton>
-              <ToggleButton>상품문의</ToggleButton>
-            </ToggleBar>
-            <BlueBox>
-              안심하고 사용하실 수 있도록 저작권과 유의사항을 확인받은
-              상품이에요
-              <br />
-              자세한 내용은 구매 전 꼭 확인해 주세요
-            </BlueBox>
-            <MainBanner>Main Banner Content</MainBanner>
-          </SecondContainer>
-          <ThirdContainer>
-            <SuggestionsTitle>작가님의 다른 도면들이에요 </SuggestionsTitle>
-            <SuggestionsGrid>
-              {/* {otherItems.map((item) => (
-                <ItemCard key={item.id} item={item} />
-              ))} */}
-            </SuggestionsGrid>
-          </ThirdContainer>
-        </MainContainer>
-      </OuterContainer>
-      <Footer />
+      {!data ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          <TopNavBar />
+          <OuterContainer>
+            <MainContainer>
+              <CategoryContainer>{data.category}</CategoryContainer>
+              <FirstContainer>
+                <MainImg src={`${data.diabetesImg}`} alt="Big Item" />
+                <RightContainer>
+                  <CompanyName>ONETOOL</CompanyName>
+                  <ItemName>{data.diabetesName}</ItemName>
+                  <PriceContainer>
+                    <OriginalPrice>
+                      {formatPrice(data.standardPrice)}원
+                    </OriginalPrice>
+                    <PriceBox>
+                      <SalePercentage>30%</SalePercentage>
+                      <CurrentPrice>56000원</CurrentPrice>
+                    </PriceBox>
+                    <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
+                  </PriceContainer>
+                  <InfoContainer>
+                    <TextBox>상품정보</TextBox>
+                    <InnerTextBox>용량 / 칼로리</InnerTextBox>
+                    <FileExtension>
+                      {data.capacity}g / {data.calorie}kcal
+                    </FileExtension>
+                    <InnerTextBox>보관방법</InnerTextBox>
+                    <CompatibleProgramsContainer>
+                      <CompatibleProgram>{data.storage}</CompatibleProgram>
+                    </CompatibleProgramsContainer>
+                    <InnerTextBox>카테고리</InnerTextBox>
+                    <Tags>
+                      <Tag>{data.category}</Tag>
+                    </Tags>
+                  </InfoContainer>
+                  <ButtonsContainer>
+                    <BuyButton>구매하기</BuyButton>
+                    <CartButton onClick={() => onClick(data.id)}>
+                      장바구니
+                    </CartButton>
+                  </ButtonsContainer>
+                </RightContainer>
+              </FirstContainer>
+              <SecondContainer>
+                <ToggleBar>
+                  <ToggleButton>상세설명</ToggleButton>
+                  <ToggleButton>상품문의</ToggleButton>
+                </ToggleBar>
+                <BlueBox>{data.diabetesDetails}</BlueBox>
+                <img src={`${data.diabetesDetailsImg}`} alt="" />
+              </SecondContainer>
+            </MainContainer>
+          </OuterContainer>
+          <Footer />
+        </>
+      )}
     </>
   );
 };

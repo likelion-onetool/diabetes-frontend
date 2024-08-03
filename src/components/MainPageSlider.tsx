@@ -92,7 +92,7 @@ const rowVariants = {
 
 interface IMainPageSlider {
   title: string;
-  content: IContent[] | undefined;
+  content: IContent[];
 }
 
 const MainPageSlider = ({ title, content }: IMainPageSlider) => {
@@ -100,7 +100,7 @@ const MainPageSlider = ({ title, content }: IMainPageSlider) => {
   const [isBack, setIsBack] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const initialOffset = 4;
-  const nextOffset = content!.length - initialOffset;
+  const nextOffset = content.length - initialOffset;
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
 

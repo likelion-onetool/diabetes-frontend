@@ -168,7 +168,7 @@ interface IItem {
 }
 
 const ShoppingCart = () => {
-  const [isEmpty, setIsEmpty] = useState<boolean>(true); // 장바구니 비었을 때 테스트용
+  const [isEmpty, setIsEmpty] = useState<boolean>(false); // 장바구니 비었을 때 테스트용
   const [items, setItems] = useState<IItem[]>([
     {
       image: "./img1.png",

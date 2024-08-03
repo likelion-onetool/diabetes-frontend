@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import { IContent } from "../api";
 import { formatPrice } from "./ItemCard";
+import { Link } from "react-router-dom";
 
 const Header = styled.div`
   display: flex;
@@ -150,17 +151,19 @@ const MainPageSlider = ({ title, content }: IMainPageSlider) => {
             {content!
               .slice(index * initialOffset, index * initialOffset + getOffset())
               .map((item, i) => (
-                <Box key={i}>
-                  <BoxImg
-                    src={item.diabetes.diabetesImg}
-                    alt={item.diabetes.diabetesName}
-                  />
-                  <BoxOwnerName>{item.diabetes.category}</BoxOwnerName>
-                  <BoxTitle>{item.diabetes.diabetesName}</BoxTitle>
-                  <BoxPrice>
-                    {formatPrice(item.diabetes.standardPrice)}원
-                  </BoxPrice>
-                </Box>
+                <Link to={`/items/detail/${item.diabetes.id}`}>
+                  <Box key={i}>
+                    <BoxImg
+                      src={item.diabetes.diabetesImg}
+                      alt={item.diabetes.diabetesName}
+                    />
+                    <BoxOwnerName>{item.diabetes.category}</BoxOwnerName>
+                    <BoxTitle>{item.diabetes.diabetesName}</BoxTitle>
+                    <BoxPrice>
+                      {formatPrice(item.diabetes.standardPrice)}원
+                    </BoxPrice>
+                  </Box>
+                </Link>
               ))}
           </Row>
         </AnimatePresence>

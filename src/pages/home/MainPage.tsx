@@ -268,6 +268,7 @@ const MainPage = () => {
   const [mainImg, setMainImg] = useState<string>("");
   const [mainProductName, setMainProductName] = useState<string>("");
   const [mainProductPrice, setMainProductPrice] = useState<string>("");
+  const [mainProductId, setMainProductId] = useState<number>(0);
   const [sliderImgArray, setSliderImgArray] = useState<string[]>([]);
 
   useEffect(() => {
@@ -276,7 +277,7 @@ const MainPage = () => {
       setMainImg(firstItem.diabetes.diabetesImg);
       setMainProductName(firstItem.diabetes.diabetesName);
       setMainProductPrice(`${formatPrice(firstItem.diabetes.standardPrice)}원`);
-
+      setMainProductId(firstItem.diabetes.id);
       const images = data.content.map((item) => item.diabetes.diabetesImg);
       setSliderImgArray(images.slice(0, 5));
     }
@@ -291,6 +292,7 @@ const MainPage = () => {
       setMainProductPrice(
         `${formatPrice(selectedItem.diabetes.standardPrice)}원`
       );
+      setMainProductId(selectedItem.diabetes.id);
     }
   };
 
@@ -331,7 +333,9 @@ const MainPage = () => {
                   <HorizontalElementContainer>
                     <HorizontalBannerTitle>인기 상품</HorizontalBannerTitle>
                     <ImageWrapper>
-                      <img src={mainImg} alt="main" />
+                      <Link to={`/items/detail/${mainProductId}`}>
+                        <img src={mainImg} alt="main" />
+                      </Link>
                       <InfoOverlay>
                         <OverlayText>{mainProductName}</OverlayText>
                         <OverlayPrice>{mainProductPrice}</OverlayPrice>
@@ -360,23 +364,28 @@ const MainPage = () => {
                     </HorizontalBannerTitle>
                     <FamousProductContainer>
                       {data?.content.slice(0, 2).map((item, index) => (
-                        <FamousProduct key={index}>
-                          <img
-                            src={item.diabetes.diabetesImg}
-                            alt={item.diabetes.diabetesName}
-                          />
-                          <FamousProductInfoWrapper>
-                            <FamousProductTitle>
-                              {item.diabetes.category}
-                            </FamousProductTitle>
-                            <FamousProductName>
-                              {item.diabetes.diabetesName}
-                            </FamousProductName>
-                            <FamousProductPrice>
-                              {formatPrice(item.diabetes.standardPrice)}원
-                            </FamousProductPrice>
-                          </FamousProductInfoWrapper>
-                        </FamousProduct>
+                        <Link
+                          to={`/items/detail/${item.diabetes.id}`}
+                          key={index}
+                        >
+                          <FamousProduct>
+                            <img
+                              src={item.diabetes.diabetesImg}
+                              alt={item.diabetes.diabetesName}
+                            />
+                            <FamousProductInfoWrapper>
+                              <FamousProductTitle>
+                                {item.diabetes.category}
+                              </FamousProductTitle>
+                              <FamousProductName>
+                                {item.diabetes.diabetesName}
+                              </FamousProductName>
+                              <FamousProductPrice>
+                                {formatPrice(item.diabetes.standardPrice)}원
+                              </FamousProductPrice>
+                            </FamousProductInfoWrapper>
+                          </FamousProduct>
+                        </Link>
                       ))}
                     </FamousProductContainer>
                   </HorizontalElementContainer>

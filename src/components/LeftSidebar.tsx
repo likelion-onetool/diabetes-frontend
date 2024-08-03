@@ -82,7 +82,7 @@ const LeftSidebar = () => {
               to={`/items/c?category=${"category1"}&page=${0}`}
               active={false}
             >
-            육류 요리/반찬 세트
+              육류 요리/반찬
             </Category>
           </MainCategoryContainer>
 
@@ -91,7 +91,7 @@ const LeftSidebar = () => {
               to={`/items/c?category=${"category2"}&page=${0}`}
               active={false}
             >
-            해산물 요리/반찬 세트
+              해산물 요리/반찬
             </Category>
           </MainCategoryContainer>
 
@@ -100,7 +100,7 @@ const LeftSidebar = () => {
               to={`/items/c?category=${"category3"}&page=${0}`}
               active={false}
             >
-            닭고기 요리/반찬 세트
+              닭고기 요리/반찬
             </Category>
           </MainCategoryContainer>
 
@@ -109,7 +109,7 @@ const LeftSidebar = () => {
               to={`/items/c?category=${"category4"}&page=${0}`}
               active={false}
             >
-            채소&두부 요리/반찬 세트
+              채소&두부 요리/반찬
             </Category>
           </MainCategoryContainer>
         </CategoryContainer>

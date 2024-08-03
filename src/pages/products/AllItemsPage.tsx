@@ -6,7 +6,7 @@ import ItemCard from "../../components/ItemCard";
 import LeftSidebar from "../../components/LeftSidebar";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -72,7 +72,7 @@ const AllItemsPage = () => {
   const location = useLocation();
   const category = new URLSearchParams(location.search).get("category");
   const search = new URLSearchParams(location.search).get("s");
-  const pageParam = new URLSearchParams(location.search).get("page") || "1";
+  const pageParam = new URLSearchParams(location.search).get("page") || "0";
   const page = parseInt(pageParam, 10);
 
   console.log(search);
@@ -86,7 +86,7 @@ const AllItemsPage = () => {
     () => {
       if (search) return getItems({ search, page });
       if (category) return getCategoryItems({ category, page });
-      return getAllItems(page);
+      return getAllItems(page, 8);
     }
   );
 

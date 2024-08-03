@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { FcFaq } from "react-icons/fc";
 import { FaHandsHelping } from "react-icons/fa";
 import { ImNewspaper } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopNavBar from "../../components/TopNavBar";
 import LeftSidebar from "../../components/LeftSidebar";
 import MainBanner from "../../components/MainBanner";
 import MainPageSlider from "../../components/MainPageSlider";
 import Footer from "../../components/Footer";
+import { useQuery } from "react-query";
+import { getAllItems, IItemsProp } from "../../api";
+import { formatPrice } from "../../components/ItemCard";
 
 const MainContainer = styled.div`
   display: flex;
@@ -216,21 +219,90 @@ const BrandProductCount = styled.span`
   color: #88888a;
 `;
 
+const SliderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+  }
+`;
+
+const InfoOverlay = styled.div`
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.5); /* Background with transparency */
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+const OverlayText = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+const OverlayPrice = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+`;
+
 const MainPage = () => {
-  const [mainImg, setMainImg] = useState<string>("/horizontal1.jpg");
-  const [sliderImgArray, setSliderImgArray] = useState<string[]>([
-    "/horizontal1.jpg",
-    "/horizontal2.jpg",
-    "/horizontal3.jpg",
-    "/horizontal4.jpg",
-    "/horizontal5.jpg",
-  ]);
+  const { data, isLoading, error } = useQuery<IItemsProp>(["main"], () =>
+    getAllItems(0, 13)
+  );
+  const [mainImg, setMainImg] = useState<string>("");
+  const [mainProductName, setMainProductName] = useState<string>("");
+  const [mainProductPrice, setMainProductPrice] = useState<string>("");
+  const [sliderImgArray, setSliderImgArray] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      const firstItem = data.content[0];
+      setMainImg(firstItem.diabetes.diabetesImg);
+      setMainProductName(firstItem.diabetes.diabetesName);
+      setMainProductPrice(`${formatPrice(firstItem.diabetes.standardPrice)}원`);
+
+      const images = data.content.map((item) => item.diabetes.diabetesImg);
+      setSliderImgArray(images.slice(0, 5));
+    }
+  }, [data]);
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonName = e.currentTarget.name;
-    const newMainImg = sliderImgArray[parseInt(buttonName) - 1];
-    setMainImg(newMainImg);
+    const buttonIndex = parseInt(e.currentTarget.name) - 1;
+    const selectedItem = data?.content[buttonIndex];
+    if (selectedItem) {
+      setMainImg(selectedItem.diabetes.diabetesImg);
+      setMainProductName(selectedItem.diabetes.diabetesName);
+      setMainProductPrice(
+        `${formatPrice(selectedItem.diabetes.standardPrice)}원`
+      );
+    }
   };
+
+  console.log(data);
+
+  const sliderData1 = data?.content.slice(0, 6);
+  console.log(sliderData1);
+
+  const sliderData2 = data?.content.slice(6, 12);
+  console.log(sliderData2);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -258,10 +330,14 @@ const MainPage = () => {
             </BannersContainer>
             <HorizontalBanners>
               <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  지금 놓치면 가격이 올라가요
-                </HorizontalBannerTitle>
-                <img src={mainImg} alt="main" decoding="async" />
+                <HorizontalBannerTitle>인기 상품</HorizontalBannerTitle>
+                <ImageWrapper>
+                  <img src={mainImg} alt="main" />
+                  <InfoOverlay>
+                    <OverlayText>{mainProductName}</OverlayText>
+                    <OverlayPrice>{mainProductPrice}</OverlayPrice>
+                  </InfoOverlay>
+                </ImageWrapper>
                 <HorizontalSliderWrapper>
                   {sliderImgArray.map((img, index) => (
                     <button
@@ -284,36 +360,25 @@ const MainPage = () => {
                   많은 사람들이 구매했어요
                 </HorizontalBannerTitle>
                 <FamousProductContainer>
-                  <FamousProduct>
-                    <img src="/horizontal1.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
-                  <FamousProduct>
-                    <img src="/horizontal2.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
-                  <FamousProduct>
-                    <img src="/horizontal3.jpg" alt="" />
-                    <FamousProductInfoWrapper>
-                      <FamousProductTitle>네모</FamousProductTitle>
-                      <FamousProductName>
-                        효과음 오토액션&스타일
-                      </FamousProductName>
-                      <FamousProductPrice>9,900원</FamousProductPrice>
-                    </FamousProductInfoWrapper>
-                  </FamousProduct>
+                  {data?.content.slice(0, 2).map((item, index) => (
+                    <FamousProduct key={index}>
+                      <img
+                        src={item.diabetes.diabetesImg}
+                        alt={item.diabetes.diabetesName}
+                      />
+                      <FamousProductInfoWrapper>
+                        <FamousProductTitle>
+                          {item.diabetes.category}
+                        </FamousProductTitle>
+                        <FamousProductName>
+                          {item.diabetes.diabetesName}
+                        </FamousProductName>
+                        <FamousProductPrice>
+                          {formatPrice(item.diabetes.standardPrice)}원
+                        </FamousProductPrice>
+                      </FamousProductInfoWrapper>
+                    </FamousProduct>
+                  ))}
                 </FamousProductContainer>
               </HorizontalElementContainer>
               <HorizontalElementContainer>
@@ -363,9 +428,10 @@ const MainPage = () => {
               </BrandLink>
             </PartnerBrandWrapper>
 
-            <MainPageSlider title={"단독 상품!"} />
-            <MainPageSlider title={"오늘의 추천"} />
-            <MainPageSlider title={"오늘만 할인!"} />
+            <SliderWrapper>
+              <MainPageSlider title={"단독 상품!"} content={sliderData1} />
+              <MainPageSlider title={"오늘의 추천"} content={sliderData2} />
+            </SliderWrapper>
           </DetailContainer>
         </ContentContainer>
       </MainContainer>

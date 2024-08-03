@@ -79,7 +79,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category1"}&page=${1}`}
+              to={`/items/c?category=${"category1"}&page=${0}`}
               active={false}
             >
               메인요리/반찬
@@ -88,7 +88,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category2"}&page=${1}`}
+              to={`/items/c?category=${"category2"}&page=${0}`}
               active={false}
             >
               국/탕/찌개
@@ -97,7 +97,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category3"}&page=${1}`}
+              to={`/items/c?category=${"category3"}&page=${0}`}
               active={false}
             >
               밥/면/죽
@@ -106,7 +106,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category4"}&page=${1}`}
+              to={`/items/c?category=${"category4"}&page=${0}`}
               active={false}
             >
               간편식/샐러드

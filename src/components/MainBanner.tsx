@@ -113,7 +113,7 @@ const MainBanner = () => {
     if (!isHovered) {
       const interval = setInterval(() => {
         setIndex((prevIndex) => (prevIndex + 1) % imgs.length);
-      }, 2000);
+      }, 3000);
       return () => clearInterval(interval);
     }
   }, [isHovered, imgs.length]);

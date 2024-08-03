@@ -19,7 +19,7 @@ export async function getItems({ search, page }: IGetItems) {
   }
 }
 
-interface IContent {
+export interface IContent {
   diabetes: {
     calorie: string;
     capacity: string;
@@ -40,10 +40,10 @@ export interface IItemsProp {
 }
 
 // 전체 카테고리
-export async function getAllItems(page: number) {
+export async function getAllItems(page: number, size: number) {
   try {
     const res = await axios.get(
-      `${process.env.REACT_APP_Server_IP}/diabetes/all?page=${page}&size=${8}`
+      `${process.env.REACT_APP_Server_IP}/diabetes/all?page=${page}&size=${size}`
     );
     return res.data;
   } catch (error) {

@@ -52,7 +52,7 @@ const TopNavBar = () => {
   const navigate = useNavigate();
 
   const onValid = ({ search }: IForm) => {
-    navigate(`/items?s=${search}&page=${1}`);
+    navigate(`/items?s=${search}&page=${0}`);
   };
 
   return (

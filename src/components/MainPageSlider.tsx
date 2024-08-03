@@ -2,12 +2,14 @@ import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
+import { IContent } from "../api";
+import { formatPrice } from "./ItemCard";
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;
 
 const SliderTitle = styled.h2`
@@ -46,20 +48,12 @@ const Box = styled.div`
   gap: 12px;
 `;
 
-const BoxImg = styled(motion.div)`
-  background-color: white;
+const BoxImg = styled(motion.img)`
+  width: 100%;
   min-height: 200px;
   border-radius: 10px;
-  background-color: #f0f0f0;
   cursor: pointer;
 `;
-
-const boxImgVariants = {
-  normal: {},
-  hover: {
-    backgroundColor: "aliceblue",
-  },
-};
 
 const BoxOwnerName = styled.span`
   font-size: 11px;
@@ -96,18 +90,17 @@ const rowVariants = {
   }),
 };
 
-const fakeData = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"];
-const initialOffset = 4;
-const nextOffset = fakeData.length - initialOffset;
-
 interface IMainPageSlider {
   title: string;
+  content: IContent[] | undefined;
 }
 
-const MainPageSlider = ({ title }: IMainPageSlider) => {
+const MainPageSlider = ({ title, content }: IMainPageSlider) => {
   const [index, setIndex] = useState(0);
   const [isBack, setIsBack] = useState(false);
   const [leaving, setLeaving] = useState(false);
+  const initialOffset = 4;
+  const nextOffset = content!.length - initialOffset;
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
@@ -154,20 +147,19 @@ const MainPageSlider = ({ title }: IMainPageSlider) => {
             exit="exit"
             custom={isBack}
           >
-            {fakeData
+            {content!
               .slice(index * initialOffset, index * initialOffset + getOffset())
               .map((item, i) => (
                 <Box key={i}>
                   <BoxImg
-                    variants={boxImgVariants}
-                    initial="normal"
-                    whileHover="hover"
+                    src={item.diabetes.diabetesImg}
+                    alt={item.diabetes.diabetesName}
                   />
-                  <BoxOwnerName>이해공간</BoxOwnerName>
-                  <BoxTitle>
-                    [반짝할인] 성공한 주인공의 럭셔리 펜트하우스 [외부]
-                  </BoxTitle>
-                  <BoxPrice>42,000원</BoxPrice>
+                  <BoxOwnerName>{item.diabetes.category}</BoxOwnerName>
+                  <BoxTitle>{item.diabetes.diabetesName}</BoxTitle>
+                  <BoxPrice>
+                    {formatPrice(item.diabetes.standardPrice)}원
+                  </BoxPrice>
                 </Box>
               ))}
           </Row>

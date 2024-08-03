@@ -294,148 +294,153 @@ const MainPage = () => {
     }
   };
 
-  console.log(data);
-
-  const sliderData1 = data?.content.slice(0, 6);
+  const sliderData1 = data?.content?.slice(0, 6) || [];
+  const sliderData2 = data?.content?.slice(6, 12) || [];
   console.log(sliderData1);
-
-  const sliderData2 = data?.content.slice(6, 12);
-  console.log(sliderData2);
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-      <TopNavBar />
-      <MainContainer>
-        <ContentContainer>
-          <LeftSidebar />
-          <DetailContainer>
-            <BannersContainer>
-              <MainBanner />
-              <Link
-                to={
-                  "https://garrulous-bearskin-817.notion.site/ONETOOL-e7a9e586415142ab9a2f49d3b4f0146d?pvs=4"
-                }
-                target="_blank"
-              >
-                <Banner2>
-                  <img src="/banner2.png" />
-                  <p>
-                    처음 방문하셨나요? <br />
-                    ONETOOL을 소개합니다.
-                  </p>
-                </Banner2>
-              </Link>
-            </BannersContainer>
-            <HorizontalBanners>
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>인기 상품</HorizontalBannerTitle>
-                <ImageWrapper>
-                  <img src={mainImg} alt="main" />
-                  <InfoOverlay>
-                    <OverlayText>{mainProductName}</OverlayText>
-                    <OverlayPrice>{mainProductPrice}</OverlayPrice>
-                  </InfoOverlay>
-                </ImageWrapper>
-                <HorizontalSliderWrapper>
-                  {sliderImgArray.map((img, index) => (
-                    <button
-                      key={index}
-                      name={(index + 1).toString()}
-                      onClick={onClick}
-                    >
-                      <SliderPreviewImg
-                        src={img}
-                        alt={`thumbnail ${index + 1}`}
-                        decoding="async"
-                      />
-                    </button>
-                  ))}
-                </HorizontalSliderWrapper>
-              </HorizontalElementContainer>
-
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  많은 사람들이 구매했어요
-                </HorizontalBannerTitle>
-                <FamousProductContainer>
-                  {data?.content.slice(0, 2).map((item, index) => (
-                    <FamousProduct key={index}>
-                      <img
-                        src={item.diabetes.diabetesImg}
-                        alt={item.diabetes.diabetesName}
-                      />
-                      <FamousProductInfoWrapper>
-                        <FamousProductTitle>
-                          {item.diabetes.category}
-                        </FamousProductTitle>
-                        <FamousProductName>
-                          {item.diabetes.diabetesName}
-                        </FamousProductName>
-                        <FamousProductPrice>
-                          {formatPrice(item.diabetes.standardPrice)}원
-                        </FamousProductPrice>
-                      </FamousProductInfoWrapper>
-                    </FamousProduct>
-                  ))}
-                </FamousProductContainer>
-              </HorizontalElementContainer>
-              <HorizontalElementContainer>
-                <HorizontalBannerTitle>
-                  한 손에 잡히는 도구, ONETOOL 활용법
-                </HorizontalBannerTitle>
-                <ButtonWrapper>
-                  <Link to={"/faq"}>
-                    <UseButton>
-                      <span>문의사항 작성하기</span>
-                      <div>
-                        <FaqIcon />
-                        <i>&rarr;</i>
-                      </div>
-                    </UseButton>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {" "}
+          <TopNavBar />
+          <MainContainer>
+            <ContentContainer>
+              <LeftSidebar />
+              <DetailContainer>
+                <BannersContainer>
+                  <MainBanner />
+                  <Link
+                    to={
+                      "https://garrulous-bearskin-817.notion.site/ONETOOL-e7a9e586415142ab9a2f49d3b4f0146d?pvs=4"
+                    }
+                    target="_blank"
+                  >
+                    <Banner2>
+                      <img src="/banner2.png" />
+                      <p>
+                        처음 방문하셨나요? <br />
+                        ONETOOL을 소개합니다.
+                      </p>
+                    </Banner2>
                   </Link>
-                  <UseButton>
-                    <span>파트너 신청하기</span>
-                    <div>
-                      <PartnerIcon />
-                      <i>&rarr;</i>
-                    </div>
-                  </UseButton>
-                </ButtonWrapper>
-                <HorizontalBannerTitle>ONETOOL 거래 현황</HorizontalBannerTitle>
-                <CurrentButton>
-                  <NewsPaperIcon />
-                  <div>
-                    <span>총 자료 수 : 2024건 이상</span>
-                    <span>누적 다운로드 수 : 1억건 이상</span>
-                  </div>
-                </CurrentButton>
-              </HorizontalElementContainer>
-            </HorizontalBanners>
+                </BannersContainer>
+                <HorizontalBanners>
+                  <HorizontalElementContainer>
+                    <HorizontalBannerTitle>인기 상품</HorizontalBannerTitle>
+                    <ImageWrapper>
+                      <img src={mainImg} alt="main" />
+                      <InfoOverlay>
+                        <OverlayText>{mainProductName}</OverlayText>
+                        <OverlayPrice>{mainProductPrice}</OverlayPrice>
+                      </InfoOverlay>
+                    </ImageWrapper>
+                    <HorizontalSliderWrapper>
+                      {sliderImgArray.map((img, index) => (
+                        <button
+                          key={index}
+                          name={(index + 1).toString()}
+                          onClick={onClick}
+                        >
+                          <SliderPreviewImg
+                            src={img}
+                            alt={`thumbnail ${index + 1}`}
+                            decoding="async"
+                          />
+                        </button>
+                      ))}
+                    </HorizontalSliderWrapper>
+                  </HorizontalElementContainer>
 
-            <HorizontalBannerTitle>ONETOOL 파트너 브랜드</HorizontalBannerTitle>
-            <PartnerBrandWrapper>
-              <BrandLink to={"/search/onetool"}>
-                <BrandLogo src="/onetool-logo.png" alt="" />
-                <BrandName>ONETOOL</BrandName>
-                <BrandProductCount>20개 상품</BrandProductCount>
-              </BrandLink>
-              <BrandLink to={"/search/onetool"}>
-                <BrandLogo src="/onetool-logo.png" alt="" />
-                <BrandName>ONETOOL</BrandName>
-                <BrandProductCount>20개 상품</BrandProductCount>
-              </BrandLink>
-            </PartnerBrandWrapper>
+                  <HorizontalElementContainer>
+                    <HorizontalBannerTitle>
+                      많은 사람들이 구매했어요
+                    </HorizontalBannerTitle>
+                    <FamousProductContainer>
+                      {data?.content.slice(0, 2).map((item, index) => (
+                        <FamousProduct key={index}>
+                          <img
+                            src={item.diabetes.diabetesImg}
+                            alt={item.diabetes.diabetesName}
+                          />
+                          <FamousProductInfoWrapper>
+                            <FamousProductTitle>
+                              {item.diabetes.category}
+                            </FamousProductTitle>
+                            <FamousProductName>
+                              {item.diabetes.diabetesName}
+                            </FamousProductName>
+                            <FamousProductPrice>
+                              {formatPrice(item.diabetes.standardPrice)}원
+                            </FamousProductPrice>
+                          </FamousProductInfoWrapper>
+                        </FamousProduct>
+                      ))}
+                    </FamousProductContainer>
+                  </HorizontalElementContainer>
+                  <HorizontalElementContainer>
+                    <HorizontalBannerTitle>
+                      한 손에 잡히는 도구, ONETOOL 활용법
+                    </HorizontalBannerTitle>
+                    <ButtonWrapper>
+                      <Link to={"/faq"}>
+                        <UseButton>
+                          <span>문의사항 작성하기</span>
+                          <div>
+                            <FaqIcon />
+                            <i>&rarr;</i>
+                          </div>
+                        </UseButton>
+                      </Link>
+                      <UseButton>
+                        <span>파트너 신청하기</span>
+                        <div>
+                          <PartnerIcon />
+                          <i>&rarr;</i>
+                        </div>
+                      </UseButton>
+                    </ButtonWrapper>
+                    <HorizontalBannerTitle>
+                      ONETOOL 거래 현황
+                    </HorizontalBannerTitle>
+                    <CurrentButton>
+                      <NewsPaperIcon />
+                      <div>
+                        <span>총 자료 수 : 2024건 이상</span>
+                        <span>누적 다운로드 수 : 1억건 이상</span>
+                      </div>
+                    </CurrentButton>
+                  </HorizontalElementContainer>
+                </HorizontalBanners>
 
-            <SliderWrapper>
-              <MainPageSlider title={"단독 상품!"} content={sliderData1} />
-              <MainPageSlider title={"오늘의 추천"} content={sliderData2} />
-            </SliderWrapper>
-          </DetailContainer>
-        </ContentContainer>
-      </MainContainer>
-      <Footer />
+                <HorizontalBannerTitle>
+                  ONETOOL 파트너 브랜드
+                </HorizontalBannerTitle>
+                <PartnerBrandWrapper>
+                  <BrandLink to={"/search/onetool"}>
+                    <BrandLogo src="/onetool-logo.png" alt="" />
+                    <BrandName>ONETOOL</BrandName>
+                    <BrandProductCount>20개 상품</BrandProductCount>
+                  </BrandLink>
+                  <BrandLink to={"/search/onetool"}>
+                    <BrandLogo src="/onetool-logo.png" alt="" />
+                    <BrandName>ONETOOL</BrandName>
+                    <BrandProductCount>20개 상품</BrandProductCount>
+                  </BrandLink>
+                </PartnerBrandWrapper>
+
+                <SliderWrapper>
+                  <MainPageSlider title={"단독 상품!"} content={sliderData1} />
+                  <MainPageSlider title={"오늘의 추천"} content={sliderData2} />
+                </SliderWrapper>
+              </DetailContainer>
+            </ContentContainer>
+          </MainContainer>
+          <Footer />
+        </>
+      )}
     </>
   );
 };

@@ -6,6 +6,7 @@ import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -61,17 +62,38 @@ const Form = styled.form`
   gap: 20px;
 `;
 
+interface IForm {
+  name: string;
+  birth_date: number;
+}
+
 const FindUserId = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const [idSuccess, setIDSuccess] = useState<boolean>(false);
+  } = useForm<IForm>();
+  const [findId, setFindId] = useState<string>("");
+  const [findName, setFindName] = useState<string>("");
 
-  const onClick = () => {
-    setIDSuccess((prev) => !prev);
+  const onValid = async ({ name, birth_date }: IForm) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_Server_IP}/users/email`,
+        {
+          name,
+          birth_date,
+        }
+      );
+      if (res.data) {
+        setFindId(res.data);
+        setFindName(name);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   // test목적으로 사용됨.
 
   return (
@@ -84,14 +106,14 @@ const FindUserId = () => {
           <span>비밀번호 찾기</span>
         </InnerTab>
       </Tab>
-      {idSuccess ? (
+      {findId ? (
         <SuccessWrapper>
-          <span>정재민</span>님의 아이디는
+          <span>{findName}</span>님의 아이디는
           <br />
-          <span>onetool@gmail.com</span> 입니다.
+          <span>{findId}</span> 입니다.
         </SuccessWrapper>
       ) : (
-        <Form>
+        <Form onSubmit={handleSubmit(onValid)}>
           <UserFormGroup>
             <UserLabel>이름</UserLabel>
             <Input
@@ -101,10 +123,13 @@ const FindUserId = () => {
             />
           </UserFormGroup>
           <UserFormGroup>
-            <UserLabel>전화번호</UserLabel>
-            <Input type="text" placeholder="전화번호를 입력해주세요." />
+            <UserLabel>생년월일</UserLabel>
+            <Input
+              type="date"
+              {...register("birth_date", { required: true })}
+            />
           </UserFormGroup>
-          <FindIdButton onClick={onClick}>아이디 찾기</FindIdButton>
+          <FindIdButton>아이디 찾기</FindIdButton>
         </Form>
       )}
     </Container>

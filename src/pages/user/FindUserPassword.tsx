@@ -1,9 +1,13 @@
-import styled from "styled-components";
+import React from "react";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
 import { Button } from "./Login";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
 
 const Tab = styled.div`
   display: flex;
@@ -50,7 +54,71 @@ const Form = styled.form`
   gap: 20px;
 `;
 
+const SuccessWrapper = styled.div`
+  text-align: center;
+  margin-top: 50px;
+  span {
+    font-weight: 700;
+  }
+  font-weight: 400;
+  font-size: 15px;
+`;
+
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: ${spin} 1s linear infinite;
+`;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
+`;
+
+interface IForm {
+  email: string;
+}
+
 const FindUserPassword = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false); // 새 상태 변수 추가
+
+  const onValid = async ({ email }: IForm) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_Server_IP}/users/password`,
+        {
+          email,
+        }
+      );
+      if (res) {
+        setIsLoading(false);
+        setIsSuccess(true); // 성공 시에만 true로 설정
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false); // 실패 시 로딩을 멈추도록 설정
+    }
+  };
+
   return (
     <>
       <Tab>
@@ -61,18 +129,33 @@ const FindUserPassword = () => {
           <span>비밀번호 찾기</span>
         </InnerTab>
       </Tab>
-      <Form>
-        <Message>
-          회원정보의 이메일로
-          <br />
-          비밀번호 재설정 메일이 발송됩니다.
-        </Message>
-        <UserFormGroup>
-          <UserLabel>아이디</UserLabel>
-          <Input type="text" placeholder="아이디를 입력해주세요." />
-        </UserFormGroup>
-        <FindIdButton>이메일 발송</FindIdButton>
-      </Form>
+      {isLoading ? (
+        <LoadingWrapper>
+          <Spinner />
+          <Message>이메일 발송 중...</Message>
+        </LoadingWrapper>
+      ) : isSuccess ? ( // isSuccess가 true일 때만 성공 메시지 표시
+        <SuccessWrapper>
+          <Message>이메일이 발송되었습니다.</Message>
+        </SuccessWrapper>
+      ) : (
+        <Form onSubmit={handleSubmit(onValid)}>
+          <Message>
+            회원정보의 이메일로
+            <br />
+            비밀번호 재설정 메일이 발송됩니다.
+          </Message>
+          <UserFormGroup>
+            <UserLabel>이메일</UserLabel>
+            <Input
+              type="text"
+              placeholder="이메일을 입력해주세요."
+              {...register("email", { required: true })}
+            />
+          </UserFormGroup>
+          <FindIdButton>이메일 발송</FindIdButton>
+        </Form>
+      )}
     </>
   );
 };

@@ -6,7 +6,7 @@ import ItemCard from "../../components/ItemCard";
 import LeftSidebar from "../../components/LeftSidebar";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -68,14 +68,34 @@ const ItemsGrid = styled.div`
   margin-left: 30px;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 8px;
+`;
+
+const PaginationButton = styled.button<{ disabled?: boolean }>`
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: ${(props) => (props.disabled ? "#f0f0f0" : "#fff")};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+
+  &:hover {
+    background-color: ${(props) => (props.disabled ? "#f0f0f0" : "#00AC17")};
+    color: ${(props) => (props.disabled ? "#333" : "#fff")};
+  }
+`;
+
 const AllItemsPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const category = new URLSearchParams(location.search).get("category");
   const search = new URLSearchParams(location.search).get("s");
   const pageParam = new URLSearchParams(location.search).get("page") || "0";
-  const page = parseInt(pageParam, 10);
-
-  console.log(search);
+  const [page, setPage] = useState(parseInt(pageParam, 10));
 
   const { data, isLoading, error } = useQuery<IItemsProp>(
     search
@@ -87,8 +107,18 @@ const AllItemsPage = () => {
       if (search) return getItems({ search, page });
       if (category) return getCategoryItems({ category, page });
       return getAllItems(page, 8);
-    }
+    },
+    { keepPreviousData: true } // 데이터 불러오기 전까지 잠시 기존 데이터로 보여주기
   );
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    navigate({
+      search: `?${category ? `category=${category}&` : ""}${
+        search ? `s=${search}&` : ""
+      }page=${newPage}`,
+    });
+  };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -100,26 +130,55 @@ const AllItemsPage = () => {
 
   return (
     <>
-      <TopNavBar />
-      <MainContainer>
-        <ContentContainer>
-          <LeftSidebar />
-          <RightContainer>
-            <TextContainer>{pageTitle}</TextContainer>
-            <FilterContainer>
-              <FilterButton>가격순 ▾</FilterButton>
-              <FilterButton>판매순 ▾</FilterButton>
-              <FilterButton>날짜순 ▾</FilterButton>
-            </FilterContainer>
-            <ItemsGrid>
-              {data?.content.map((item) => (
-                <ItemCard key={item.diabetes.id} item={item.diabetes} />
-              ))}
-            </ItemsGrid>
-          </RightContainer>
-        </ContentContainer>
-        <Footer />
-      </MainContainer>
+      {!data ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <TopNavBar />
+          <MainContainer>
+            <ContentContainer>
+              <LeftSidebar />
+              <RightContainer>
+                <TextContainer>{pageTitle}</TextContainer>
+                <FilterContainer>
+                  <FilterButton>가격순 ▾</FilterButton>
+                  <FilterButton>판매순 ▾</FilterButton>
+                  <FilterButton>날짜순 ▾</FilterButton>
+                </FilterContainer>
+                <ItemsGrid>
+                  {data.content.map((item) => (
+                    <ItemCard key={item.diabetes.id} item={item.diabetes} />
+                  ))}
+                </ItemsGrid>
+                <PaginationContainer>
+                  <PaginationButton
+                    onClick={() => handlePageChange(page - 1)}
+                    disabled={page === 0}
+                  >
+                    이전
+                  </PaginationButton>
+                  {[...Array(data.totalPages)].map((_, index) => (
+                    <PaginationButton
+                      key={index}
+                      onClick={() => handlePageChange(index)}
+                      disabled={index === page}
+                    >
+                      {index + 1}
+                    </PaginationButton>
+                  ))}
+                  <PaginationButton
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={page + 1 >= (data?.totalPages || 1)}
+                  >
+                    다음
+                  </PaginationButton>
+                </PaginationContainer>
+              </RightContainer>
+            </ContentContainer>
+            <Footer />
+          </MainContainer>
+        </>
+      )}
     </>
   );
 };

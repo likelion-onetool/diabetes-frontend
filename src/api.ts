@@ -11,7 +11,7 @@ export async function getItems({ search, page }: IGetItems) {
     const res = await axios.get(
       `${
         process.env.REACT_APP_Server_IP
-      }/diabetes?s=${search}&page=${page}&size=${6}`
+      }/diabetes?s=${search}&page=${page}&size=${8}`
     );
     return res.data;
   } catch (error) {
@@ -37,6 +37,9 @@ export interface IContent {
 
 export interface IItemsProp {
   content: IContent[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
 }
 
 // 전체 카테고리
@@ -62,7 +65,7 @@ export async function getCategoryItems({ category, page }: IGetCategoryItems) {
     const res = await axios.get(
       `${
         process.env.REACT_APP_Server_IP
-      }/diabetes/c?category=${category}&page=${page}&size=${6}`
+      }/diabetes/c?category=${category}&page=${page}&size=${8}`
     );
     return res.data;
   } catch (error) {

@@ -16,6 +16,7 @@ import Profile from "./pages/user/Profile";
 import ErrorComponent from "./components/ErrorComponent";
 import MainPage from "./pages/home/MainPage";
 import AllItemsPage from "./pages/products/AllItemsPage";
+import CartPayment from "./pages/pay/CartPayment";
 
 const router = createBrowserRouter([
   {
@@ -86,12 +87,12 @@ const router = createBrowserRouter([
     element: <CenterLayout />,
     children: [
       {
-        path: "",
-        element: <Payment />,
+        path: "cart",
+        element: <CartPayment />,
       },
       {
-        path: "success",
-        element: <PaymentSuccess />,
+        path: ":id",
+        element: <Payment />,
       },
     ],
   },

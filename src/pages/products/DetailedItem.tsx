@@ -290,7 +290,7 @@ const MainImg = styled.img`
   object-position: center;
 `;
 
-interface IDetailItem {
+export interface IDetailItem {
   calorie: string;
   capacity: string;
   category: string;
@@ -340,6 +340,10 @@ const DetailedItem = () => {
     mutation.mutate(id);
   };
 
+  const onOrderClick = (id: number) => {
+    navigate(`/payment/${id}`);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -385,7 +389,9 @@ const DetailedItem = () => {
                     </Tags>
                   </InfoContainer>
                   <ButtonsContainer>
-                    <BuyButton>구매하기</BuyButton>
+                    <BuyButton onClick={() => onOrderClick(data.id)}>
+                      구매하기
+                    </BuyButton>
                     <CartButton onClick={() => onClick(data.id)}>
                       장바구니
                     </CartButton>

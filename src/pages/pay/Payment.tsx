@@ -8,7 +8,11 @@ import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { getCartItems, getDetailItem } from "../../api";
+import { IDetailItem } from "../products/DetailedItem";
+import axios from "axios";
 
 const Title = styled.span`
   font-size: 22px;
@@ -227,23 +231,14 @@ interface CheckedItems {
 
 const Payment = () => {
   const [cardToggle, setCardToggle] = useState(false);
+  const params = useParams();
+  const { id } = params;
+  console.log(id);
 
-  const items = [
-    {
-      image: "./img1.png",
-      name: "판타지 초원 환경(Fantasy GrassField)",
-      price: 13000,
-      checked: false,
-    },
-    {
-      image: "./img1.png",
-      name: "판타지 초원 환경(Fantasy GrassField)",
-      price: 13000,
-      checked: false,
-    },
-  ];
+  const { data, isLoading, error } = useQuery<IDetailItem>(["pay"], () =>
+    getDetailItem(Number(id))
+  );
 
-  const totalAmount = items.reduce((total, item) => total + item.price, 0);
   const [personState, setPersonState] = useState<boolean>(true);
   const [institutionState, setInstitutionState] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -272,18 +267,32 @@ const Payment = () => {
     }));
   };
 
-  const handlePurchaseClick = () => {
+  const handlePurchaseClick = async () => {
     if (!isAllChecked()) {
       alert("유의사항에 전부 동의해주세요!");
     } else {
-      // 주문 성공 페이지로 이동
-      navigate("/payment/success");
+      await axios.post(
+        `${process.env.REACT_APP_Server_IP}/orders/complete`,
+        {
+          totalPrice: data?.standardPrice,
+          orderList: [{ foodId: Number(data?.id) }],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+        }
+      );
     }
   };
 
   const isAllChecked = () => {
     return Object.values(checkedItems).every(Boolean);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Wrapper>
@@ -292,17 +301,17 @@ const Payment = () => {
         <LuBox />
         <span>주문상품</span>
       </Banner>
-      {items.map((item, index) => (
-        <CartItem key={index}>
-          <ItemImage src={item.image} alt={item.name} />
-          <ItemDetails>
-            <ItemName>{item.name}</ItemName>
-          </ItemDetails>
-          <ItemPriceDetail>
-            <ItemPrice>{item.price.toLocaleString()}원</ItemPrice>
-          </ItemPriceDetail>
-        </CartItem>
-      ))}
+
+      <CartItem>
+        <ItemImage src={data?.diabetesImg} alt={data?.diabetesName} />
+        <ItemDetails>
+          <ItemName>{data?.diabetesName}</ItemName>
+        </ItemDetails>
+        <ItemPriceDetail>
+          <ItemPrice>{data?.standardPrice.toLocaleString()}원</ItemPrice>
+        </ItemPriceDetail>
+      </CartItem>
+
       <Banner>
         <FaRegUser />
         <span>주문자</span>
@@ -361,16 +370,12 @@ const Payment = () => {
       <PriceWrapper>
         <TotalPrice>
           <span>총 상품 금액</span>
-          <span>{totalAmount.toLocaleString()}</span>
+          <span>{data?.standardPrice.toLocaleString()}원</span>
         </TotalPrice>
-        <Discount>
-          <span>총 할인 금액</span>
-          <span>-{4000}</span>
-        </Discount>
       </PriceWrapper>
       <FinalPrice>
         <span>최종 결제 금액</span>
-        <span>{(totalAmount - 4000).toLocaleString()}</span>
+        <span>{data?.standardPrice.toLocaleString()}원</span>
       </FinalPrice>
       <Banner>
         <MdOutlinePayment />

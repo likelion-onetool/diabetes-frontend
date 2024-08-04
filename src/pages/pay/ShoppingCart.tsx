@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import styled from "styled-components";
 import Item from "../../components/Item";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getCartItems } from "../../api";
 
@@ -176,12 +176,13 @@ interface ICartDetail {
   diabetesResponses: IItem[];
 }
 
-interface ICart {
+export interface ICart {
   isSuccess: boolean;
   result: string | ICartDetail;
 }
 
 const ShoppingCart = () => {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery<ICart>(["cart"], () =>
     getCartItems()
   );
@@ -279,7 +280,9 @@ const ShoppingCart = () => {
                 <span>결제 금액</span>
                 <ToTalPrice>{formatPrice(cartDetail.totalPrice)}원</ToTalPrice>
               </SummaryText>
-              <OrderButton>주문하기</OrderButton>
+              <OrderButton onClick={() => navigate("/payment/cart")}>
+                주문하기
+              </OrderButton>
               <Link to="/items">
                 <ShoppingButton>계속 쇼핑하기</ShoppingButton>
               </Link>

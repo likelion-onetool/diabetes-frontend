@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import { isUserLoggedIn } from "../utils/functions";
 
 const TopNavBarContainer = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ interface IForm {
 }
 
 const TopNavBar = () => {
+  const user = isUserLoggedIn();
   const { register, handleSubmit } = useForm<IForm>();
   const navigate = useNavigate();
 
@@ -68,12 +70,22 @@ const TopNavBar = () => {
         />
       </form>
       <Icons>
-        <Link to="/cart">
-          <PiShoppingCartSimpleBold style={{ width: "22px", height: "22px" }} />
-        </Link>
-        <Link to="/users/login">
-          <FaRegUser style={{ width: "18px", height: "18px" }} />
-        </Link>
+        {user ? (
+          <>
+            <Link to="/cart">
+              <PiShoppingCartSimpleBold
+                style={{ width: "22px", height: "22px" }}
+              />
+            </Link>
+            <Link to="/users/profile">
+              <FaRegUser style={{ width: "18px", height: "18px" }} />
+            </Link>
+          </>
+        ) : (
+          <Link to="/users/login">
+            <FaRegUser style={{ width: "18px", height: "18px" }} />
+          </Link>
+        )}
       </Icons>
     </TopNavBarContainer>
   );

@@ -2,6 +2,8 @@ import React from "react";
 import { GoX } from "react-icons/go";
 import styled from "styled-components";
 import { CheckBoxStyled, IItem } from "../pages/pay/ShoppingCart";
+import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 
 const CartItem = styled.div`
   display: flex;
@@ -58,6 +60,24 @@ interface ItemProps {
 }
 
 const Item = ({ item, checked, onCheck }: ItemProps) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (id: number) =>
+      axios.delete(`${process.env.REACT_APP_Server_IP}/api/cart/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(["cart"]),
+    }
+  );
+
+  const onClick = (id: number) => {
+    mutation.mutate(id);
+  };
+
   return (
     <CartItem>
       <CheckBoxStyled
@@ -71,7 +91,7 @@ const Item = ({ item, checked, onCheck }: ItemProps) => {
       </ItemDetails>
       <ItemPriceDetail>
         <ItemPrice>{item.standardPrice.toLocaleString()}원</ItemPrice>
-        <Xbutton />
+        <Xbutton onClick={() => onClick(item.id)} />
       </ItemPriceDetail>
     </CartItem>
   );

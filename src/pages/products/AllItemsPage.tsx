@@ -146,7 +146,7 @@ const AllItemsPage = () => {
                 </FilterContainer>
                 <ItemsGrid>
                   {data.content.map((item) => (
-                    <ItemCard key={item.diabetes.id} item={item.diabetes} />
+                    <ItemCard key={item.id} item={item} />
                   ))}
                 </ItemsGrid>
                 <PaginationContainer>

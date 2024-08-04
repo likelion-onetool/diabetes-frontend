@@ -20,19 +20,17 @@ export async function getItems({ search, page }: IGetItems) {
 }
 
 export interface IContent {
-  diabetes: {
-    calorie: string;
-    capacity: string;
-    category: string;
-    diabetesDetails: string;
-    diabetesDetailsImg: string;
-    diabetesImg: string;
-    diabetesName: string;
-    hits: boolean;
-    id: number;
-    standardPrice: number;
-    storage: string;
-  };
+  calorie: string;
+  capacity: string;
+  category: string;
+  diabetesDetails: string;
+  diabetesDetailsImg: string;
+  diabetesImg: string;
+  diabetesName: string;
+  hits: boolean;
+  id: number;
+  standardPrice: number;
+  storage: string;
 }
 
 export interface IItemsProp {
@@ -48,6 +46,7 @@ export async function getAllItems(page: number, size: number) {
     const res = await axios.get(
       `${process.env.REACT_APP_Server_IP}/diabetes/all?page=${page}&size=${size}`
     );
+
     return res.data;
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import UserFormGroup from "./components/UserFormGroup";
 import UserLabel from "./components/UserLabel";
@@ -107,6 +107,7 @@ interface ILoginForm {
 
 const Login = () => {
   const { register, handleSubmit } = useForm<ILoginForm>();
+  const navigate = useNavigate();
 
   const onValid = async ({ email, password }: ILoginForm) => {
     console.log(email, password);
@@ -125,6 +126,8 @@ const Login = () => {
 
       if (accessToken) {
         sessionStorage.setItem("accessToken", accessToken); // sessionStorage에 토큰 저장
+        navigate("/");
+
         console.log("Access Token:", accessToken);
       } else {
         console.log("토큰을 가져오지 못했습니다.");

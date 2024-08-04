@@ -151,8 +151,8 @@ const MainPageSlider = ({ title, content }: IMainPageSlider) => {
             {content!
               .slice(index * initialOffset, index * initialOffset + getOffset())
               .map((item, i) => (
-                <Link to={`/items/detail/${item.diabetes.id}`}>
-                  <Box key={i}>
+                <Link to={`/items/detail/${item.diabetes.id}`} key={i}>
+                  <Box>
                     <BoxImg
                       src={item.diabetes.diabetesImg}
                       alt={item.diabetes.diabetesName}

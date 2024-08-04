@@ -83,3 +83,16 @@ export async function getDetailItem(id: number) {
     console.log(error);
   }
 }
+
+export async function getCartItems() {
+  try {
+    const res = await axios.get(`${process.env.REACT_APP_Server_IP}/cart`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

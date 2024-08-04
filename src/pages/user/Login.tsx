@@ -120,9 +120,8 @@ const Login = () => {
         },
         { withCredentials: true } // 쿠키를 포함하여 요청을 보냄
       );
-      console.log(res);
 
-      let accessToken = res.headers["authorization"];
+      let accessToken = res.data;
 
       if (accessToken) {
         sessionStorage.setItem("accessToken", accessToken); // sessionStorage에 토큰 저장

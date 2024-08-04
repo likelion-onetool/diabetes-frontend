@@ -324,6 +324,7 @@ const MainPage = () => {
                       <img src="/banner2.png" />
                       <p>
                         처음 방문하셨나요? <br />
+                        당뇨병 관리 식단 제공 서비스, <br />
                         ONETOOL을 소개합니다.
                       </p>
                     </Banner2>

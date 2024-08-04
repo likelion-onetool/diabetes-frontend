@@ -55,8 +55,7 @@ const FilterButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #5ce65c;
   }
 `;
 
@@ -126,7 +125,7 @@ const AllItemsPage = () => {
     ? `검색 결과: ${search}`
     : category
     ? `카테고리: ${category}`
-    : "전체 아이템 목록";
+    : "전체 상품 목록";
 
   return (
     <>
@@ -143,7 +142,7 @@ const AllItemsPage = () => {
                 <FilterContainer>
                   <FilterButton>가격순 ▾</FilterButton>
                   <FilterButton>판매순 ▾</FilterButton>
-                  <FilterButton>날짜순 ▾</FilterButton>
+                  <FilterButton>후기순 ▾</FilterButton>
                 </FilterContainer>
                 <ItemsGrid>
                   {data.content.map((item) => (

@@ -275,11 +275,11 @@ const MainPage = () => {
   useEffect(() => {
     if (data) {
       const firstItem = data.content[0];
-      setMainImg(firstItem.diabetes.diabetesImg);
-      setMainProductName(firstItem.diabetes.diabetesName);
-      setMainProductPrice(`${formatPrice(firstItem.diabetes.standardPrice)}원`);
-      setMainProductId(firstItem.diabetes.id);
-      const images = data.content.map((item) => item.diabetes.diabetesImg);
+      setMainImg(firstItem.diabetesImg);
+      setMainProductName(firstItem.diabetesName);
+      setMainProductPrice(`${formatPrice(firstItem.standardPrice)}원`);
+      setMainProductId(firstItem.id);
+      const images = data.content.map((item) => item.diabetesImg);
       setSliderImgArray(images.slice(0, 5));
     }
   }, [data]);
@@ -288,18 +288,15 @@ const MainPage = () => {
     const buttonIndex = parseInt(e.currentTarget.name) - 1;
     const selectedItem = data?.content[buttonIndex];
     if (selectedItem) {
-      setMainImg(selectedItem.diabetes.diabetesImg);
-      setMainProductName(selectedItem.diabetes.diabetesName);
-      setMainProductPrice(
-        `${formatPrice(selectedItem.diabetes.standardPrice)}원`
-      );
-      setMainProductId(selectedItem.diabetes.id);
+      setMainImg(selectedItem.diabetesImg);
+      setMainProductName(selectedItem.diabetesName);
+      setMainProductPrice(`${formatPrice(selectedItem.standardPrice)}원`);
+      setMainProductId(selectedItem.id);
     }
   };
 
   const sliderData1 = data?.content?.slice(0, 6) || [];
   const sliderData2 = data?.content?.slice(6, 12) || [];
-  console.log(sliderData1);
 
   return (
     <>
@@ -366,24 +363,21 @@ const MainPage = () => {
                     </HorizontalBannerTitle>
                     <FamousProductContainer>
                       {data?.content.slice(0, 2).map((item, index) => (
-                        <Link
-                          to={`/items/detail/${item.diabetes.id}`}
-                          key={index}
-                        >
+                        <Link to={`/items/detail/${item.id}`} key={index}>
                           <FamousProduct>
                             <img
-                              src={item.diabetes.diabetesImg}
-                              alt={item.diabetes.diabetesName}
+                              src={item.diabetesImg}
+                              alt={item.diabetesName}
                             />
                             <FamousProductInfoWrapper>
                               <FamousProductTitle>
-                                {item.diabetes.category}
+                                {item.category}
                               </FamousProductTitle>
                               <FamousProductName>
-                                {item.diabetes.diabetesName}
+                                {item.diabetesName}
                               </FamousProductName>
                               <FamousProductPrice>
-                                {formatPrice(item.diabetes.standardPrice)}원
+                                {formatPrice(item.standardPrice)}원
                               </FamousProductPrice>
                             </FamousProductInfoWrapper>
                           </FamousProduct>
@@ -393,7 +387,7 @@ const MainPage = () => {
                   </HorizontalElementContainer>
                   <HorizontalElementContainer>
                     <HorizontalBannerTitle>
-                    당뇨병 관리 식단 서비스, ONETOOL 활용법
+                      당뇨병 관리 식단 서비스, ONETOOL 활용법
                     </HorizontalBannerTitle>
                     <ButtonWrapper>
                       <Link to={"/faq"}>
@@ -419,8 +413,11 @@ const MainPage = () => {
                     <CurrentButton>
                       <NewsPaperIcon />
                       <div>
-      
-                        <span>고객님들이 선택한 식단을<br />확인해보세요!</span>
+                        <span>
+                          고객님들이 선택한 식단을
+                          <br />
+                          확인해보세요!
+                        </span>
                       </div>
                     </CurrentButton>
                   </HorizontalElementContainer>

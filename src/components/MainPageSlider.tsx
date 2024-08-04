@@ -151,17 +151,12 @@ const MainPageSlider = ({ title, content }: IMainPageSlider) => {
             {content!
               .slice(index * initialOffset, index * initialOffset + getOffset())
               .map((item, i) => (
-                <Link to={`/items/detail/${item.diabetes.id}`} key={i}>
+                <Link to={`/items/detail/${item.id}`} key={i}>
                   <Box>
-                    <BoxImg
-                      src={item.diabetes.diabetesImg}
-                      alt={item.diabetes.diabetesName}
-                    />
-                    <BoxOwnerName>{item.diabetes.category}</BoxOwnerName>
-                    <BoxTitle>{item.diabetes.diabetesName}</BoxTitle>
-                    <BoxPrice>
-                      {formatPrice(item.diabetes.standardPrice)}원
-                    </BoxPrice>
+                    <BoxImg src={item.diabetesImg} alt={item.diabetesName} />
+                    <BoxOwnerName>{item.category}</BoxOwnerName>
+                    <BoxTitle>{item.diabetesName}</BoxTitle>
+                    <BoxPrice>{formatPrice(item.standardPrice)}원</BoxPrice>
                   </Box>
                 </Link>
               ))}

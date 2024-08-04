@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TopNavBar from "../../components/TopNavBar";
 import Footer from "../../components/Footer";
 import ItemCard, { formatPrice } from "../../components/ItemCard";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDetailItem } from "../../api";
 import axios from "axios";
@@ -315,16 +315,31 @@ const DetailedItem = () => {
     () => getDetailItem(Number(params.id))
   );
 
-  const onClick = async (id: number) => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_Server_IP}/api/cart/add/${id}`
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (id: number) =>
+      axios.post(
+        `${process.env.REACT_APP_Server_IP}/api/cart/add/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+        }
+      ),
+    {
+      onSuccess: () => {
+        //cart 내용 강제 refetch
+        queryClient.invalidateQueries(["cart"]);
+      },
     }
+  );
+
+  const onClick = (id: number) => {
+    mutation.mutate(id);
   };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }

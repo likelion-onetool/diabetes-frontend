@@ -1,7 +1,7 @@
 import React from "react";
 import { GoX } from "react-icons/go";
 import styled from "styled-components";
-import { CheckBoxStyled } from "../pages/pay/ShoppingCart";
+import { CheckBoxStyled, IItem } from "../pages/pay/ShoppingCart";
 
 const CartItem = styled.div`
   display: flex;
@@ -51,34 +51,26 @@ const Xbutton = styled(GoX)`
   cursor: pointer;
 `;
 
-interface IItemProps {
-  item: {
-    image: string;
-    name: string;
-    price: number;
-  };
+interface ItemProps {
+  item: IItem;
   checked: boolean;
-  onCheck: (item: IItemProps["item"]) => void;
+  onCheck: (item: IItem) => void;
 }
 
-const Item = ({ item, checked, onCheck }: IItemProps) => {
-  const handleChange = () => {
-    onCheck(item);
-  };
-
+const Item = ({ item, checked, onCheck }: ItemProps) => {
   return (
     <CartItem>
       <CheckBoxStyled
         type="checkbox"
         checked={checked}
-        onChange={handleChange}
+        onChange={() => onCheck(item)}
       />
-      <ItemImage src={item.image} alt={item.name} />
+      <ItemImage src={item.diabetesImg} alt={item.diabetesName} />
       <ItemDetails>
-        <ItemName>{item.name}</ItemName>
+        <ItemName>{item.diabetesName}</ItemName>
       </ItemDetails>
       <ItemPriceDetail>
-        <ItemPrice>{item.price.toLocaleString()}원</ItemPrice>
+        <ItemPrice>{item.standardPrice.toLocaleString()}원</ItemPrice>
         <Xbutton />
       </ItemPriceDetail>
     </CartItem>

@@ -27,6 +27,7 @@ const CategoryHeader = styled.h2`
   font-size: 17.25px;
   line-height: 16px;
   margin-bottom: 10px;
+  margin-top: -30px;
 `;
 
 const CategoryContainer = styled.div`

@@ -63,7 +63,7 @@ const TopNavBar = () => {
       <form onSubmit={handleSubmit(onValid)}>
         <SearchBar
           type="text"
-          placeholder="어떤 도면을 찾고 계신가요?"
+          placeholder="어떤 제품을 찾고 계신가요?"
           {...register("search", { required: true })}
         />
       </form>

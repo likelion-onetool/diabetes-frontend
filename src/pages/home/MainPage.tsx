@@ -391,7 +391,7 @@ const MainPage = () => {
                   </HorizontalElementContainer>
                   <HorizontalElementContainer>
                     <HorizontalBannerTitle>
-                      한 손에 잡히는 도구, ONETOOL 활용법
+                    당뇨병 관리 식단 서비스, ONETOOL 활용법
                     </HorizontalBannerTitle>
                     <ButtonWrapper>
                       <Link to={"/faq"}>
@@ -404,7 +404,7 @@ const MainPage = () => {
                         </UseButton>
                       </Link>
                       <UseButton>
-                        <span>파트너 신청하기</span>
+                        <span>단체주문 작성하기</span>
                         <div>
                           <PartnerIcon />
                           <i>&rarr;</i>
@@ -412,13 +412,13 @@ const MainPage = () => {
                       </UseButton>
                     </ButtonWrapper>
                     <HorizontalBannerTitle>
-                      ONETOOL 거래 현황
+                      식단 관리 고객 리뷰
                     </HorizontalBannerTitle>
                     <CurrentButton>
                       <NewsPaperIcon />
                       <div>
-                        <span>총 자료 수 : 2024건 이상</span>
-                        <span>누적 다운로드 수 : 1억건 이상</span>
+      
+                        <span>고객님들이 선택한 식단을<br />확인해보세요!</span>
                       </div>
                     </CurrentButton>
                   </HorizontalElementContainer>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import ListedItems from "./pages/products/AllItemsPage";
 import DetailedItem from "./pages/products/DetailedItem";
 import Login from "./pages/user/Login";
@@ -17,6 +17,14 @@ import ErrorComponent from "./components/ErrorComponent";
 import MainPage from "./pages/home/MainPage";
 import AllItemsPage from "./pages/products/AllItemsPage";
 import CartPayment from "./pages/pay/CartPayment";
+
+const ProtectedRoute = ({ children }: { children: any }) => {
+  const token = sessionStorage.getItem("accessToken");
+  if (!token) {
+    return <Navigate to="/" />;
+  }
+  return children;
+};
 
 const router = createBrowserRouter([
   {
@@ -65,7 +73,11 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -78,21 +90,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <ShoppingCart />,
+        element: (
+          <ProtectedRoute>
+            <ShoppingCart />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
   {
     path: "/payment",
-    element: <CenterLayout />,
+    element: (
+      <ProtectedRoute>
+        <CenterLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "cart",
-        element: <CartPayment />,
+        element: (
+          <ProtectedRoute>
+            <CartPayment />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ":id",
-        element: <Payment />,
+        element: (
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -109,7 +137,11 @@ const router = createBrowserRouter([
       },
       {
         path: "write",
-        element: <WriteFAQ />,
+        element: (
+          <ProtectedRoute>
+            <WriteFAQ />
+          </ProtectedRoute>
+        ),
       },
       {
         path: ":id",

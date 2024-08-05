@@ -310,10 +310,11 @@ const CartPayment = () => {
     } else {
       if (data && typeof data.result !== "string") {
         const orderList = data.result.diabetesResponses.map((item) => ({
-          foodId: item.id,
+          foodId: Number(item.id),
         }));
+
         await axios.post(
-          `${process.env.REACT_APP_Server_IP}/orders/complete`,
+          `/orders/complete`,
           {
             totalPrice: data.result.totalPrice,
             orderList,

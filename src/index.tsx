@@ -3,6 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./Route";
 import { createGlobalStyle } from "styled-components";
 import { QueryClient, QueryClientProvider } from "react-query";
+import axios from "axios";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
@@ -77,6 +78,8 @@ input{
   outline: none;
 }
 `;
+
+axios.defaults.baseURL = "http://3.37.212.144:8080";
 
 const queryClient = new QueryClient({
   defaultOptions: {

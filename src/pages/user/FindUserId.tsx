@@ -78,13 +78,10 @@ const FindUserId = () => {
 
   const onValid = async ({ name, birth_date }: IForm) => {
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_Server_IP}/users/email`,
-        {
-          name,
-          birth_date,
-        }
-      );
+      const res = await axios.post(`/users/email`, {
+        name,
+        birth_date,
+      });
       if (res.data) {
         setFindId(res.data);
         setFindName(name);

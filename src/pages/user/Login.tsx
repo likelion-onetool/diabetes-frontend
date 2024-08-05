@@ -114,7 +114,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_Server_IP}/users/login`,
+        `/users/login`,
         {
           email,
           password,

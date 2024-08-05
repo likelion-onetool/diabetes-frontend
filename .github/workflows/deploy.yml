@@ -35,5 +35,5 @@ jobs:
           username: ${{ secrets.EC2_SSH_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
+            docker kill $(docker ps -qf expose=80) 2> /dev/null || echo 'No container running on port 80'
             docker run -d -p 80:8080 ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}

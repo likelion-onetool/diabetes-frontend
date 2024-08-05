@@ -78,8 +78,8 @@ const Banner = styled.div`
   font-size: 17px;
   font-weight: 700;
   p {
-    color: #0029ff;
-    font-size: 11px;
+    color: red;
+    font-size: 12px;
     font-weight: 400;
   }
 `;
@@ -111,7 +111,7 @@ const TableRow = styled.div`
     background-color: #f9f9f9;
   }
   i {
-    color: #0029ff;
+    color: red;
   }
   p {
     font-size: 14px;
@@ -140,13 +140,23 @@ const TableRowCheckBoxDiv = styled.div`
     align-items: center;
   }
 `;
+const WithDrawWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+`;
 
 const WithDrawButton = styled.button`
-  margin-top: 24px;
-  font-size: 15px;
-  font-weight: 400;
-  text-decoration: underline;
-  color: #4e4eff;
+  color: black;
+  width: 160px;
+  height: 45px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
 `;
 
 const ButtonWrapper = styled.div`
@@ -169,8 +179,8 @@ const Button = styled.button`
 `;
 
 const AcceptButton = styled(Button)`
-  color: white;
-  background-color: #0034ba;
+  border: #5ce65c;
+  background-color: #5ce65c;
 `;
 
 const HistoryWrapper = styled.div`
@@ -437,13 +447,14 @@ const Profile = () => {
               </TableRowCheckBoxDiv>
             </TableRow>
             <ButtonWrapper>
-              <AcceptButton type="submit">수정완료</AcceptButton>
+              <AcceptButton type="submit">수정 완료</AcceptButton>
               <Button type="button">취소</Button>
             </ButtonWrapper>
           </Form>
+    <WithDrawWrapper>
           <WithDrawButton onClick={() => deleteUser()}>
             회원 탈퇴하기 {">>"}
-          </WithDrawButton>
+          </WithDrawButton></WithDrawWrapper>
           <HistoryWrapper>
             <HitoryTitle>
               <span>최근 주문 내역</span>

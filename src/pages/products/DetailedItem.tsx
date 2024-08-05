@@ -202,10 +202,10 @@ const ButtonsContainer = styled.div`
 
 const BuyButton = styled.button`
   height: 48px;
-  padding: 12px 152.35px 12px 152.34px;
+  
   border: none;
-  color: white;
-  background-color: #4e4eff;
+  color: black;
+  background-color: #5ce65c;
   cursor: pointer;
   border-radius: 8px;
 
@@ -215,7 +215,8 @@ const BuyButton = styled.button`
   text-align: center;
 
   &:hover {
-    background-color: #0056b3;
+    color: white;
+    background-color: green;
   }
 `;
 

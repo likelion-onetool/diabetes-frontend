@@ -115,6 +115,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "success",
+        element: (
+          <ProtectedRoute>
+            <PaymentSuccess />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: ":id",
         element: (
           <ProtectedRoute>

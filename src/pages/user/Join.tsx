@@ -214,7 +214,7 @@ const Join = () => {
           "Content-Type": "application/json",
         },
       });
-      if (res.status === 200) {
+      if (res.status === 201) {
         alert("회원가입이 완료되었습니다.");
         navigate("/users/login");
       }

@@ -237,7 +237,7 @@ const ShoppingCart = () => {
           </Circle>
           <Empty>장바구니가 비어있어요.</Empty>
           <Go>지금 담으러 가볼까요?</Go>
-          <FamLink to={"/items"}>인기 작품 구경 가기 &rarr;</FamLink>
+          <FamLink to={"/items"}>제품 구경 가기 &rarr;</FamLink>
         </Wrapper>
       </Container>
     );

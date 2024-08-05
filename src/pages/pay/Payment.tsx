@@ -8,8 +8,13 @@ import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
-import { redirect, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import {
+  redirect,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getCartItems, getDetailItem } from "../../api";
 import { IDetailItem } from "../products/DetailedItem";
 import axios from "axios";
@@ -220,7 +225,7 @@ const PurchaseButton = styled.button`
   align-items: center;
   justify-content: center;
 
-   &:hover {
+  &:hover {
     transition: 0.5s;
     border: 1px solid #5cd65c;
     background-color: #5ce65c;
@@ -243,6 +248,7 @@ interface CheckedItems {
 
 const Payment = () => {
   const [cardToggle, setCardToggle] = useState(false);
+  const queryClient = useQueryClient();
   const params = useParams();
   const { id } = params;
   console.log(id);
@@ -279,11 +285,9 @@ const Payment = () => {
     }));
   };
 
-  const handlePurchaseClick = async () => {
-    if (!isAllChecked()) {
-      alert("유의사항에 전부 동의해주세요!");
-    } else {
-      await axios.post(
+  const mutation = useMutation(
+    () =>
+      axios.post(
         `/orders/complete`,
         {
           totalPrice: data?.standardPrice,
@@ -294,7 +298,22 @@ const Payment = () => {
             Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
           },
         }
-      );
+      ),
+    {
+      onSuccess: (res) => {
+        if (res.status === 200) {
+          queryClient.invalidateQueries(["user"]);
+          navigate("/payment/success");
+        }
+      },
+    }
+  );
+
+  const handlePurchaseClick = async () => {
+    if (!isAllChecked()) {
+      alert("유의사항에 전부 동의해주세요!");
+    } else {
+      mutation.mutate();
     }
   };
 
@@ -310,7 +329,7 @@ const Payment = () => {
     <Wrapper>
       <Title>주문결제</Title>
       <Banner>
-        <LuBox /> 
+        <LuBox />
         <TitleBox>주문상품</TitleBox>
       </Banner>
 
@@ -342,9 +361,7 @@ const Payment = () => {
           <Input type="text" placeholder="example@example.com" />
         </FormGroup>
       </Form>
-      
-      
-        
+
       <Banner>
         <FaWonSign />
         <TitleBox>결제 금액</TitleBox>
@@ -400,8 +417,8 @@ const Payment = () => {
             required={true}
           />
           <p>
-            구매하실 상품의 원산지 및 성분 정보 등 상품 및 결제정보를 확인하였으며,
-            구매진행에 동의합니다. <span> (필수)</span>
+            구매하실 상품의 원산지 및 성분 정보 등 상품 및 결제정보를
+            확인하였으며, 구매진행에 동의합니다. <span> (필수)</span>
           </p>
         </div>
         <div>
@@ -413,8 +430,8 @@ const Payment = () => {
             required={true}
           />
           <p>
-            주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
-            하십시오.
+            주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이 정확한지
+            다시 한번 확인 하십시오.
             <span> (필수)</span>
           </p>
         </div>

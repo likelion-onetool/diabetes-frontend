@@ -9,7 +9,7 @@ import { BsCart4, BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getCartItems, getDetailItem } from "../../api";
 import { ICart } from "./ShoppingCart";
 import axios from "axios";
@@ -206,7 +206,6 @@ const CheckBoxWrapper = styled.div`
   }
 `;
 
-
 const PurchaseButton = styled.button`
   width: 196px;
   height: 48px;
@@ -283,6 +282,7 @@ interface CheckedItems {
 
 const CartPayment = () => {
   const [cardToggle, setCardToggle] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery<ICart>(["cart"], () =>
     getCartItems()
@@ -316,16 +316,14 @@ const CartPayment = () => {
     }));
   };
 
-  const handlePurchaseClick = async () => {
-    if (!isAllChecked()) {
-      alert("유의사항에 전부 동의해주세요!");
-    } else {
+  const mutation = useMutation(
+    async () => {
       if (data && typeof data.result !== "string") {
         const orderList = data.result.diabetesResponses.map((item) => ({
           foodId: Number(item.id),
         }));
 
-        await axios.post(
+        const res = await axios.post(
           `/orders/complete`,
           {
             totalPrice: data.result.totalPrice,
@@ -337,8 +335,27 @@ const CartPayment = () => {
             },
           }
         );
+        return res;
       }
-      navigate("/payment/success");
+    },
+    {
+      onSuccess: (res) => {
+        if (res?.status === 200) {
+          queryClient.invalidateQueries(["user"]);
+          navigate("/payment/success");
+        }
+      },
+      onError: (error) => {
+        console.error("주문 완료 중 오류 발생:", error);
+      },
+    }
+  );
+
+  const handlePurchaseClick = () => {
+    if (!isAllChecked()) {
+      alert("유의사항에 전부 동의해주세요!");
+    } else {
+      mutation.mutate();
     }
   };
 
@@ -402,7 +419,7 @@ const CartPayment = () => {
             <Input type="text" placeholder="example@example.com" />
           </FormGroup>
         </Form>
-        
+
         <Banner>
           <FaWonSign />
           <TitleBox>결제 금액</TitleBox>
@@ -445,7 +462,7 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-            제품 성분 및 섭취 시 유의사항을 모두 확인하였습니다.
+              제품 성분 및 섭취 시 유의사항을 모두 확인하였습니다.
               <span> (필수)</span>
             </p>
           </div>
@@ -458,8 +475,8 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-              구매하실 상품의 원산지 및 성분 정보 등 상품 및 결제정보를 확인하였으며,
-              구매진행에 동의합니다. <span> (필수)</span>
+              구매하실 상품의 원산지 및 성분 정보 등 상품 및 결제정보를
+              확인하였으며, 구매진행에 동의합니다. <span> (필수)</span>
             </p>
           </div>
           <div>
@@ -471,8 +488,8 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-              주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
-              하십시오.
+              주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이
+              정확한지 다시 한번 확인 하십시오.
               <span> (필수)</span>
             </p>
           </div>

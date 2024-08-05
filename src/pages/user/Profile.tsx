@@ -281,6 +281,12 @@ const Profile = () => {
     }
   };
 
+  const logOutClick = () => {
+    const token = sessionStorage.removeItem("accessToken");
+    alert("로그아웃 되었습니다.");
+    navigate("/");
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -307,7 +313,7 @@ const Profile = () => {
                 </div>
               </UserProfileDetail>
             </UserProfileWrapper>
-            <LogOutButton>로그아웃</LogOutButton>
+            <LogOutButton onClick={() => logOutClick()}>로그아웃</LogOutButton>
           </UserProfile>
           <Banner>
             <span>기본정보</span>

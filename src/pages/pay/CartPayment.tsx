@@ -81,7 +81,7 @@ const ItemPrice = styled.span`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   margin-top: 24px;
 `;
 
@@ -93,8 +93,9 @@ const FormGroup = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
+  margin-bottom: 5px;
 `;
 
 const Input = styled.input`
@@ -102,6 +103,7 @@ const Input = styled.input`
   height: 40px;
   padding: 8px;
   border: 1px solid #dbe0e4;
+  border-radius: 7px;
 `;
 
 const BoxTitle = styled.span`
@@ -172,14 +174,14 @@ const Card = styled.button<{ isActive: boolean }>`
   width: 184px;
   height: 48px;
   border: ${(props) =>
-    props.isActive ? "1px solid #8e8eff" : "1px solid #A2A2A4"};
+    props.isActive ? "1px solid #5cd65c" : "1px solid #A2A2A4"};
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   cursor: pointer;
-  background-color: ${({ isActive }) => (isActive ? "#8e8eff" : "transparent")};
+  background-color: ${({ isActive }) => (isActive ? "#5cd65c" : "transparent")};
 `;
 
 const CheckBoxWrapper = styled.div`
@@ -200,9 +202,10 @@ const CheckBoxWrapper = styled.div`
   span {
     font-size: 11px;
     font-weight: 400;
-    color: #4e4eff;
+    color: green;
   }
 `;
+
 
 const PurchaseButton = styled.button`
   width: 196px;
@@ -213,6 +216,11 @@ const PurchaseButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover {
+    transition: 0.5s;
+    border: 1px solid #5cd65c;
+    background-color: #5ce65c;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -228,6 +236,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+const TitleBox = styled.div`
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const Circle = styled.div`
@@ -356,7 +368,7 @@ const CartPayment = () => {
   if (data && typeof data.result !== "string") {
     return (
       <Wrapper>
-        <Title>주문서</Title>
+        <Title>주문결제</Title>
         <Banner>
           <LuBox />
           <span>주문상품</span>
@@ -374,12 +386,12 @@ const CartPayment = () => {
         ))}
         <Banner>
           <FaRegUser />
-          <span>주문자</span>
+          <TitleBox>주문자</TitleBox>
         </Banner>
         <Form>
           <FormGroup>
             <Label>주문자명</Label>
-            <Input type="text" placeholder="(예시)홍길동" />
+            <Input type="text" placeholder="(예시) 홍길동" />
           </FormGroup>
           <FormGroup>
             <Label>휴대폰 번호</Label>
@@ -390,42 +402,10 @@ const CartPayment = () => {
             <Input type="text" placeholder="example@example.com" />
           </FormGroup>
         </Form>
-        <Banner>
-          <LuPencilLine />
-          <span>사용권</span>
-        </Banner>
-        <BoxTitle>사용권 유형</BoxTitle>
-        <BoxWrapper>
-          <Box onClick={onPersonClicked} isActive={personState}>
-            <input
-              type="radio"
-              checked={personState}
-              onChange={onPersonClicked}
-            />
-            <span>개인 사용권</span>
-            <p>
-              필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고, 공유할
-              수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른 필명을 사용할
-              경우, 모든 필명을 입력 해주세요.
-            </p>
-          </Box>
-          <Box onClick={onInstitutionClicked} isActive={institutionState}>
-            <input
-              type="radio"
-              checked={institutionState}
-              onChange={onInstitutionClicked}
-            />
-            <span>기업 사용권</span>
-            <p>
-              등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제 사용
-              작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든 작가가
-              사 용할 수 있어요.
-            </p>
-          </Box>
-        </BoxWrapper>
+        
         <Banner>
           <FaWonSign />
-          <span>결제 금액</span>
+          <TitleBox>결제 금액</TitleBox>
         </Banner>
         <PriceWrapper>
           <TotalPrice>
@@ -439,7 +419,7 @@ const CartPayment = () => {
         </FinalPrice>
         <Banner>
           <MdOutlinePayment />
-          <span>결제 수단</span>
+          <TitleBox>결제 수단</TitleBox>
         </Banner>
         <CardWrapper>
           <Card onClick={() => setCardToggle(false)} isActive={!cardToggle}>
@@ -465,7 +445,7 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-              유의사항 및 최종 사용자 라이센스계약을 확인하였습니다.
+            제품 성분 및 섭취 시 유의사항을 모두 확인하였습니다.
               <span> (필수)</span>
             </p>
           </div>
@@ -478,7 +458,7 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-              구매하실 상품의 확장자 등 상품 및 결제정보를 확인하였으며,
+              구매하실 상품의 원산지 및 성분 정보 등 상품 및 결제정보를 확인하였으며,
               구매진행에 동의합니다. <span> (필수)</span>
             </p>
           </div>
@@ -491,15 +471,15 @@ const CartPayment = () => {
               required={true}
             />
             <p>
-              구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번
-              확인 하십시오.
+              주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
+              하십시오.
               <span> (필수)</span>
             </p>
           </div>
         </CheckBoxWrapper>
         <ButtonWrapper>
           <PurchaseButton onClick={handlePurchaseClick}>
-            주문하기
+            결제하기
           </PurchaseButton>
         </ButtonWrapper>
       </Wrapper>

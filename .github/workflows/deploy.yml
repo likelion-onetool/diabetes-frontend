@@ -1,0 +1,39 @@
+name: Docker Image 만들고, EC2 배포
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 도커 이미지에 env 파일 포함
+      - name: Create .env file
+        run: |
+          touch .env
+          echo REACT_APP_Server_IP ="${{ secrets.REACT_APP_SERVER_IP }}" >> .env
+
+      # 내 도커허브 로그인
+      - name: Docker 이미지 만들고 Dockerhub에 푸시
+        run: |
+          docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+          docker build -t ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}} .
+          docker push ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}
+
+      # 도커이미지 빌드하고 허브로 푸쉬
+      - name: EC2에서 이미지 pull 후, 컨테이너 실행
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_SSH_USER }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
+            docker run -d -p 80:8080 ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}

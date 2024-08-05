@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
@@ -49,9 +49,18 @@ interface IForm {
 }
 
 const TopNavBar = () => {
-  const user = isUserLoggedIn();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const { register, handleSubmit } = useForm<IForm>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      const result = await isUserLoggedIn();
+      setIsLoggedIn(result);
+    };
+
+    checkUserLoggedIn();
+  }, []);
 
   const onValid = ({ search }: IForm) => {
     navigate(`/items?s=${search}&page=${0}`);
@@ -70,7 +79,7 @@ const TopNavBar = () => {
         />
       </form>
       <Icons>
-        {user ? (
+        {isLoggedIn ? (
           <>
             <Link to="/cart">
               <PiShoppingCartSimpleBold

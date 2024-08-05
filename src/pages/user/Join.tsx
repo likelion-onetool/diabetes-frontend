@@ -114,7 +114,7 @@ const CardTermsWrapper = styled.div`
     align-items: center;
   }
   span {
-    color: #4e4eff;
+    color: #5cd65c;
   }
   padding-top: 20px;
   gap: 16px;
@@ -127,8 +127,7 @@ const JoinButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #919eab3d;
-  color: #919eabcc;
+  background-color: #5cd65c;
   font-size: 14px;
   font-weight: 700;
 `;
@@ -184,14 +183,6 @@ const Join = () => {
       setCheckBoxes((prev) => [...prev, e.target.name]);
     }
   };
-  const onClick = () => {
-    if (checkBoxes.includes("usage") && checkBoxes.includes("info")) {
-      alert("회원가입이 완료되었습니다.");
-      // navigate("/");
-    } else {
-      alert("필수항목에 모두 체크해주세요!");
-    }
-  };
 
   const onValid = async (data: IForm) => {
     try {
@@ -218,12 +209,15 @@ const Join = () => {
       console.log(payload);
 
       // 데이터 전송
-      await axios.post(`/users/signup`, payload, {
+      const res = await axios.post(`/users/signup`, payload, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      navigate("/users/login");
+      if (res.status === 200) {
+        alert("회원가입이 완료되었습니다.");
+        navigate("/users/login");
+      }
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -285,7 +279,6 @@ const Join = () => {
             })}
           />
           {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-          <AuthButton>인증하기</AuthButton>
         </Wrapper>
 
         <Wrapper>

@@ -338,6 +338,7 @@ const DetailedItem = () => {
 
   const onClick = (id: number) => {
     mutation.mutate(id);
+    navigate("/cart");
   };
 
   const onOrderClick = (id: number) => {

@@ -2,10 +2,10 @@ name: Docker Image 만들고, EC2 배포
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:

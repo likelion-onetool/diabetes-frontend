@@ -100,13 +100,24 @@ const Form = styled.form`
   gap: 20px;
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
 interface ILoginForm {
   email: string;
   password: string;
 }
 
 const Login = () => {
-  const { register, handleSubmit } = useForm<ILoginForm>();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<ILoginForm>();
   const navigate = useNavigate();
 
   const onValid = async ({ email, password }: ILoginForm) => {
@@ -133,6 +144,10 @@ const Login = () => {
         console.log("토큰을 가져오지 못했습니다.");
       }
     } catch (error) {
+      setError("email", {
+        type: "manual",
+        message: "아이디와 비밀번호를 확인하세요.",
+      });
       console.error("로그인 실패", error); // 로그인 실패 시 에러 출력
     }
   };
@@ -145,16 +160,20 @@ const Login = () => {
           <Input
             type="text"
             placeholder="example@example.com"
-            {...register("email", { required: true })}
+            {...register("email", { required: "이메일을 입력해주세요." })}
           />
+          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
         </UserFormGroup>
         <UserFormGroup>
           <UserLabel>비밀번호</UserLabel>
           <Input
             type="password"
             placeholder="비밀번호 입력"
-            {...register("password", { required: true })}
+            {...register("password", { required: "비밀번호를 입력해주세요." })}
           />
+          {errors.password && (
+            <ErrorMessage>{errors.password.message}</ErrorMessage>
+          )}
         </UserFormGroup>
 
         <Option>

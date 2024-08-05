@@ -22,15 +22,19 @@ const Title = styled.span`
 const UserProfile = styled.div`
   display: flex;
   gap: 12px;
+  padding: 10px 23px;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   margin: 20px 0;
+  border: 1px solid #cccccc;
+  border-radius: 50px;
 `;
 
 const UserProfileWrapper = styled.div`
   display: flex;
   align-items: center;
+  padding-top:10px;
 `;
 
 const UserProfileDetail = styled.div`

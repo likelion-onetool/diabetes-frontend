@@ -10,6 +10,8 @@ export async function isUserLoggedIn() {
     });
     if (res.status === 200) {
       return true;
+    } else {
+      return false;
     }
   }
   return false;

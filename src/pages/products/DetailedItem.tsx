@@ -320,7 +320,7 @@ const DetailedItem = () => {
   const mutation = useMutation(
     (id: number) =>
       axios.post(
-        `${process.env.REACT_APP_Server_IP}/api/cart/add/${id}`,
+        `/api/cart/add/${id}`,
         {},
         {
           headers: {

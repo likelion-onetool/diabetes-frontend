@@ -51,7 +51,7 @@ const PaymentSuccess = () => {
         <SiMinutemailer />
       </Circle>
       <Empty>결제가 완료되었습니다.</Empty>
-      <Go>1일 이내로 이메일로 전송예정입니다.</Go>
+      <Go>일주일 이내로 상품이 전송예정입니다.</Go>
       <FamLink to={"/items"}>새로운 상품 구경가기 &rarr;</FamLink>
     </Wrapper>
   );

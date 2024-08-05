@@ -12,7 +12,6 @@ import { redirect, useLocation, useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query";
 import { getCartItems, getDetailItem } from "../../api";
 import { IDetailItem } from "../products/DetailedItem";
-import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 
 const Title = styled.span`
@@ -82,7 +81,7 @@ const ItemPrice = styled.span`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px;
   margin-top: 24px;
 `;
 
@@ -94,8 +93,9 @@ const FormGroup = styled.div`
 `;
 
 const Label = styled.span`
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
+  margin-bottom: 5px;
 `;
 
 const Input = styled.input`
@@ -103,6 +103,7 @@ const Input = styled.input`
   height: 40px;
   padding: 8px;
   border: 1px solid #dbe0e4;
+  border-radius: 7px;
 `;
 
 const BoxTitle = styled.span`
@@ -143,6 +144,10 @@ const Price = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+const TitleBox = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;
 
 const TotalPrice = styled(Price)`
   font-size: 14px;
@@ -173,14 +178,14 @@ const Card = styled.button<{ isActive: boolean }>`
   width: 184px;
   height: 48px;
   border: ${(props) =>
-    props.isActive ? "1px solid #8e8eff" : "1px solid #A2A2A4"};
+    props.isActive ? "1px solid #5cd65c" : "1px solid #A2A2A4"};
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   cursor: pointer;
-  background-color: ${({ isActive }) => (isActive ? "#8e8eff" : "transparent")};
+  background-color: ${({ isActive }) => (isActive ? "#5cd65c" : "transparent")};
 `;
 
 const CheckBoxWrapper = styled.div`
@@ -201,7 +206,7 @@ const CheckBoxWrapper = styled.div`
   span {
     font-size: 11px;
     font-weight: 400;
-    color: #4e4eff;
+    color: green;
   }
 `;
 
@@ -209,11 +214,17 @@ const PurchaseButton = styled.button`
   width: 196px;
   height: 48px;
   border-radius: 8px;
-  background-color: #4e4eff;
-  color: white;
+  border: 1px solid #cccccc;
+  font-size: 15.13px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+   &:hover {
+    transition: 0.5s;
+    border: 1px solid #5cd65c;
+    background-color: #5ce65c;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -297,10 +308,10 @@ const Payment = () => {
 
   return (
     <Wrapper>
-      <Title>주문서</Title>
+      <Title>주문결제</Title>
       <Banner>
-        <LuBox />
-        <span>주문상품</span>
+        <LuBox /> 
+        <TitleBox>주문상품</TitleBox>
       </Banner>
 
       <CartItem>
@@ -315,7 +326,7 @@ const Payment = () => {
 
       <Banner>
         <FaRegUser />
-        <span>주문자</span>
+        <TitleBox>주문자</TitleBox>
       </Banner>
       <Form>
         <FormGroup>
@@ -336,7 +347,7 @@ const Payment = () => {
         
       <Banner>
         <FaWonSign />
-        <span>결제 금액</span>
+        <TitleBox>결제 금액</TitleBox>
       </Banner>
       <PriceWrapper>
         <TotalPrice>
@@ -350,7 +361,7 @@ const Payment = () => {
       </FinalPrice>
       <Banner>
         <MdOutlinePayment />
-        <span>결제 수단</span>
+        <TitleBox>결제 수단</TitleBox>
       </Banner>
       <CardWrapper>
         <Card onClick={() => setCardToggle(false)} isActive={!cardToggle}>
@@ -376,7 +387,7 @@ const Payment = () => {
             required={true}
           />
           <p>
-            유의사항 및 최종 사용자 라이센스계약을 확인하였습니다.
+            제품 성분 및 섭취 시 유의사항을 모두 확인하였습니다.
             <span> (필수)</span>
           </p>
         </div>
@@ -402,14 +413,14 @@ const Payment = () => {
             required={true}
           />
           <p>
-            구매한 상품은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
+            주문내역과 구매하신 영수증은 이메일로 전송됩니다. 이메일이 정확한지 다시 한번 확인
             하십시오.
             <span> (필수)</span>
           </p>
         </div>
       </CheckBoxWrapper>
       <ButtonWrapper>
-        <PurchaseButton onClick={handlePurchaseClick}>주문하기</PurchaseButton>
+        <PurchaseButton onClick={handlePurchaseClick}>결제하기</PurchaseButton>
       </ButtonWrapper>
     </Wrapper>
   );

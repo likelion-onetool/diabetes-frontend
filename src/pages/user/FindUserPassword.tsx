@@ -103,12 +103,9 @@ const FindUserPassword = () => {
   const onValid = async ({ email }: IForm) => {
     setIsLoading(true);
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_Server_IP}/users/password`,
-        {
-          email,
-        }
-      );
+      const res = await axios.post(`/users/password`, {
+        email,
+      });
       if (res) {
         setIsLoading(false);
         setIsSuccess(true); // 성공 시에만 true로 설정

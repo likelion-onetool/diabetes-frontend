@@ -344,15 +344,9 @@ const DetailedItem = () => {
     navigate(`/payment/${id}`);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
-      {!data ? (
-        <div>Loading</div>
-      ) : (
+      {data ? (
         <>
           <TopNavBar />
           <OuterContainer>
@@ -410,9 +404,10 @@ const DetailedItem = () => {
           </OuterContainer>
           <Footer />
         </>
+      ) : (
+        <div>isLoading</div>
       )}
     </>
   );
 };
-
 export default DetailedItem;

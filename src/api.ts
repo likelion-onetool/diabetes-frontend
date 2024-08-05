@@ -8,11 +8,7 @@ interface IGetItems {
 // 검색어로 검색
 export async function getItems({ search, page }: IGetItems) {
   try {
-    const res = await axios.get(
-      `${
-        process.env.REACT_APP_Server_IP
-      }/diabetes?s=${search}&page=${page}&size=${8}`
-    );
+    const res = await axios.get(`/diabetes?s=${search}&page=${page}&size=${8}`);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -43,9 +39,7 @@ export interface IItemsProp {
 // 전체 카테고리
 export async function getAllItems(page: number, size: number) {
   try {
-    const res = await axios.get(
-      `${process.env.REACT_APP_Server_IP}/diabetes/all?page=${page}&size=${size}`
-    );
+    const res = await axios.get(`/diabetes/all?page=${page}&size=${size}`);
 
     return res.data;
   } catch (error) {
@@ -62,9 +56,7 @@ interface IGetCategoryItems {
 export async function getCategoryItems({ category, page }: IGetCategoryItems) {
   try {
     const res = await axios.get(
-      `${
-        process.env.REACT_APP_Server_IP
-      }/diabetes/c?category=${category}&page=${page}&size=${8}`
+      `/diabetes/c?category=${category}&page=${page}&size=${8}`
     );
     return res.data;
   } catch (error) {
@@ -74,9 +66,7 @@ export async function getCategoryItems({ category, page }: IGetCategoryItems) {
 
 export async function getDetailItem(id: number) {
   try {
-    const res = await axios.get(
-      `${process.env.REACT_APP_Server_IP}/food/${id}`
-    );
+    const res = await axios.get(`/food/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -85,7 +75,7 @@ export async function getDetailItem(id: number) {
 
 export async function getCartItems() {
   try {
-    const res = await axios.get(`${process.env.REACT_APP_Server_IP}/cart`, {
+    const res = await axios.get(`/cart`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },

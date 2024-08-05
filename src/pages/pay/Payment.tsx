@@ -272,7 +272,7 @@ const Payment = () => {
       alert("유의사항에 전부 동의해주세요!");
     } else {
       await axios.post(
-        `${process.env.REACT_APP_Server_IP}/orders/complete`,
+        `/orders/complete`,
         {
           totalPrice: data?.standardPrice,
           orderList: [{ foodId: Number(data?.id) }],

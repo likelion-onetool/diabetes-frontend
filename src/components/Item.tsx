@@ -64,7 +64,7 @@ const Item = ({ item, checked, onCheck }: ItemProps) => {
 
   const mutation = useMutation(
     (id: number) =>
-      axios.delete(`${process.env.REACT_APP_Server_IP}/api/cart/delete/${id}`, {
+      axios.delete(`/api/cart/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },

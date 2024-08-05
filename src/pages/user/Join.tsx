@@ -218,17 +218,12 @@ const Join = () => {
       console.log(payload);
 
       // 데이터 전송
-      await axios.post(
-        `${process.env.REACT_APP_Server_IP}/users/signup`,
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Data submitted successfully:", payload);
+      await axios.post(`/users/signup`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/users/login");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -436,7 +431,7 @@ const Join = () => {
             </div>
           </CardTermsWrapper>
         </Card>
-        <JoinButton onClick={onClick}>가입하기</JoinButton>
+        <JoinButton>가입하기</JoinButton>
       </Form>
     </Container>
   );

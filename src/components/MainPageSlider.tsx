@@ -32,7 +32,7 @@ const SliderBtn = styled(motion.div)`
 const Wrapper = styled.div`
   position: relative;
   overflow: hidden;
-  height: 380px; /* Box height + gap */
+  height: 450px; /* Box height + gap */
 `;
 
 const Row = styled(motion.div)`

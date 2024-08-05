@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { RiKakaoTalkLine } from "react-icons/ri";
+import { FaInstagram } from "react-icons/fa";
+import { IoCallOutline } from "react-icons/io5";
 
 // Styled components
 const FooterContainer = styled.footer`
@@ -19,7 +22,8 @@ const TopContainer = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 22px;
+  
 `;
 
 const Button = styled.a`
@@ -38,7 +42,9 @@ const Button = styled.a`
 
 const IconContainer = styled.div`
   display: flex;
-  gap: 10px;
+  margin-right: -30px;
+  gap: 15px;
+  font-size: 25px;
 `;
 
 const Icon = styled.img`
@@ -95,9 +101,9 @@ const Footer: React.FC = () => {
           <Button href="#!">공지사항</Button>
         </ButtonContainer>
         <IconContainer>
-          <Icon src="/path/to/kakaotalk-icon.png" alt="KakaoTalk" />
-          <Icon src="/path/to/instagram-icon.png" alt="Instagram" />
-          <Icon src="/path/to/globe-icon.png" alt="Globe" />
+        <RiKakaoTalkLine />
+        <FaInstagram />
+    
         </IconContainer>
       </TopContainer>
       <BottomContainer>

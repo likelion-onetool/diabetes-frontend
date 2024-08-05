@@ -5,6 +5,7 @@ import { getUserInfo } from "../../api";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
 `;
 
@@ -74,6 +75,8 @@ const Banner = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 6px;
+  font-size: 17px;
+  font-weight: 700;
   p {
     color: #0029ff;
     font-size: 11px;
@@ -175,6 +178,10 @@ const HistoryWrapper = styled.div`
   margin-top: 72px;
 `;
 
+
+const ProfilePic = styled.div`
+  font-size: 40px;
+`;
 const HitoryTitle = styled.div`
   text-align: center;
   padding: 24px 0;
@@ -302,7 +309,8 @@ const Profile = () => {
           <Title>회원정보</Title>
           <UserProfile>
             <UserProfileWrapper>
-              <img src="/user.png" alt="user profile" />
+              <ProfilePic> <CgProfile /></ProfilePic>
+
               <UserProfileDetail>
                 <div>
                   <Name>{data.name}</Name>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Input from "../../components/Input";
 import { useQuery } from "react-query";
-import { getUserInfo } from "../../api";
+import { getUserInfo, IContent } from "../../api";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -186,30 +186,72 @@ const HitoryTitle = styled.div`
   text-align: center;
   padding: 24px 0;
   border-bottom: 1px solid #cdcdcd;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const HistoryListBox = styled.ul`
   width: 100%;
-  height: 44px;
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #fafafc;
   border-bottom: 1px solid #eaeaea;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 13px;
+
+  li {
+    flex: 1;
+    text-align: center;
+    color: #333;
+  }
 `;
 
 const HistoryElementBox = styled.div`
   width: 100%;
-  height: 89px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-bottom: 1px solid #eaeaea;
+  padding: 15px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 const ErrorMessage = styled.p`
   color: red;
   font-size: 12px;
+`;
+
+const ListItem = styled.li`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const ItemImage = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
+const ItemInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ItemName = styled.span`
+  font-size: 14px;
+  font-weight: bold;
+`;
+
+const ItemPrice = styled.span`
+  font-size: 12px;
+  color: grey;
 `;
 
 interface IProfile {
@@ -220,6 +262,12 @@ interface IProfile {
   phoneNum: string;
   development_field: string;
   isNative: true;
+  orderCompleteResponseDtos: ICartData[];
+}
+
+interface ICartData {
+  totalPrice: number;
+  items: IContent[];
 }
 
 interface IForm {
@@ -334,7 +382,9 @@ const Profile = () => {
               <p>{data.email}</p>
             </TableRow>
             <TableRow>
-              <span>비밀번호</span>
+              <span>
+                비밀번호<i>*</i>
+              </span>
               <TableRowDiv>
                 <Input
                   type="password"
@@ -399,26 +449,20 @@ const Profile = () => {
             </HitoryTitle>
             <HistoryListBox>
               <li>상품 정보</li>
-              <li>주문 번호</li>
-              <li>상품 금액</li>
-              <li>주문 상태</li>
             </HistoryListBox>
             <HistoryElementBox>
-              <p>최근 주문 내역이 없습니다.</p>
-            </HistoryElementBox>
-          </HistoryWrapper>
-          <HistoryWrapper>
-            <HitoryTitle>
-              <span>나의 문의 내역</span>
-            </HitoryTitle>
-            <HistoryListBox>
-              <li>날짜</li>
-              <li>문의 제목</li>
-              <li>문의 내용</li>
-              <li>문의 상태</li>
-            </HistoryListBox>
-            <HistoryElementBox>
-              <p>최근 상품 문의 내역이 없습니다.</p>
+              {data.orderCompleteResponseDtos.map((item, index) => (
+                <ListItem key={index}>
+                  <ItemImage
+                    src={item.items[0].diabetesImg}
+                    alt={item.items[0].diabetesName}
+                  />
+                  <ItemInfo>
+                    <ItemName>{item.items[0].diabetesName}</ItemName>
+                    <ItemPrice>{item.items[0].standardPrice}</ItemPrice>
+                  </ItemInfo>
+                </ListItem>
+              ))}
             </HistoryElementBox>
           </HistoryWrapper>
         </Container>

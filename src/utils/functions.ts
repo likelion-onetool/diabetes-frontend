@@ -4,7 +4,7 @@ export async function isUserLoggedIn() {
   const token = sessionStorage.getItem("accessToken");
   if (token) {
     try {
-      const res = await axios.get("/users", {
+      const res = await axios.get("/check", {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },

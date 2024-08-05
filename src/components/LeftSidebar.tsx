@@ -27,7 +27,6 @@ const CategoryHeader = styled.h2`
   font-size: 17.25px;
   line-height: 16px;
   margin-bottom: 10px;
-  
 `;
 
 const CategoryContainer = styled.div`
@@ -80,7 +79,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category1"}&page=${0}`}
+              to={`/items/c?category=${"육류"}&page=${0}`}
               active={false}
             >
               육류 요리/반찬
@@ -89,7 +88,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category2"}&page=${0}`}
+              to={`/items/c?category=${"해산물"}&page=${0}`}
               active={false}
             >
               해산물 요리/반찬
@@ -98,7 +97,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category3"}&page=${0}`}
+              to={`/items/c?category=${"닭고기"}&page=${0}`}
               active={false}
             >
               닭고기 요리/반찬
@@ -107,7 +106,7 @@ const LeftSidebar = () => {
 
           <MainCategoryContainer>
             <Category
-              to={`/items/c?category=${"category4"}&page=${0}`}
+              to={`/items/c?category=${"채소"}&page=${0}`}
               active={false}
             >
               채소&두부 요리/반찬

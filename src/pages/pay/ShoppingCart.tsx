@@ -153,8 +153,8 @@ const OrderButton = styled(Button)`
 `;
 
 const ShoppingButton = styled(Button)`
-  border: 1px solid #4e4eff;
-  color: #4e4eff;
+  border: 1px solid green;
+  color: green;
 `;
 
 export const CheckBoxStyled = styled.input`

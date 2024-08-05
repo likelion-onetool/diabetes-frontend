@@ -80,7 +80,7 @@ const ItemName = styled.div`
 `;
 
 const PriceContainer = styled.div`
-  height: 126px;
+  height: 60px;
   padding: 10px 0px 30px 0px;
   gap: 10px;
   border-bottom: 1px solid #88888a50;
@@ -359,14 +359,10 @@ const DetailedItem = () => {
                   <CompanyName>ONETOOL</CompanyName>
                   <ItemName>{data.diabetesName}</ItemName>
                   <PriceContainer>
-                    <OriginalPrice>
-                      {formatPrice(data.standardPrice)}원
-                    </OriginalPrice>
-                    <PriceBox>
-                      <SalePercentage>30%</SalePercentage>
-                      <CurrentPrice>56000원</CurrentPrice>
-                    </PriceBox>
-                    <SaleTimer>남은 시간 2일 10:13:50</SaleTimer>
+                    
+                      <CurrentPrice>{formatPrice(data.standardPrice)}원</CurrentPrice>
+               
+                    
                   </PriceContainer>
                   <InfoContainer>
                     <TextBox>상품정보</TextBox>

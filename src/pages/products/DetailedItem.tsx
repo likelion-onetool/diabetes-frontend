@@ -320,7 +320,7 @@ const DetailedItem = () => {
   const mutation = useMutation(
     (id: number) =>
       axios.post(
-        `${process.env.REACT_APP_Server_IP}/api/cart/add/${id}`,
+        `/api/cart/add/${id}`,
         {},
         {
           headers: {
@@ -387,7 +387,7 @@ const DetailedItem = () => {
                       구매하기
                     </BuyButton>
                     <CartButton onClick={() => onClick(data.id)}>
-                      장바구니
+                      장바구니에 담기
                     </CartButton>
                   </ButtonsContainer>
                 </RightContainer>

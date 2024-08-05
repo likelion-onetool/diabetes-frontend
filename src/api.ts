@@ -85,3 +85,16 @@ export async function getCartItems() {
     console.log(error);
   }
 }
+
+export async function getUserInfo() {
+  try {
+    const res = await axios.get(`/users`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

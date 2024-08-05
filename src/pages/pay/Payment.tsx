@@ -8,10 +8,11 @@ import { MdOutlinePayment } from "react-icons/md";
 import { BsCreditCardFill } from "react-icons/bs";
 import { MdAccountBalance } from "react-icons/md";
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { redirect, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getCartItems, getDetailItem } from "../../api";
 import { IDetailItem } from "../products/DetailedItem";
+import { CgProfile } from "react-icons/cg";
 import axios from "axios";
 
 const Title = styled.span`
@@ -319,7 +320,7 @@ const Payment = () => {
       <Form>
         <FormGroup>
           <Label>주문자명</Label>
-          <Input type="text" placeholder="(예시)홍길동" />
+          <Input type="text" placeholder="(예시) 홍길동" />
         </FormGroup>
         <FormGroup>
           <Label>휴대폰 번호</Label>
@@ -330,39 +331,9 @@ const Payment = () => {
           <Input type="text" placeholder="example@example.com" />
         </FormGroup>
       </Form>
-      <Banner>
-        <LuPencilLine />
-        <span>사용권</span>
-      </Banner>
-      <BoxTitle>사용권 유형</BoxTitle>
-      <BoxWrapper>
-        <Box onClick={onPersonClicked} isActive={personState}>
-          <input
-            type="radio"
-            checked={personState}
-            onChange={onPersonClicked}
-          />
-          <span>개인 사용권</span>
-          <p>
-            필명이 작품에 반드시 표시되어야 해요. 본인만 사용 가능하고, 공유할
-            수 없어요. 여러 작품에 사용 가능해요. 작품마다 다 른 필명을 사용할
-            경우, 모든 필명을 입력 해주세요.
-          </p>
-        </Box>
-        <Box onClick={onInstitutionClicked} isActive={institutionState}>
-          <input
-            type="radio"
-            checked={institutionState}
-            onChange={onInstitutionClicked}
-          />
-          <span>기업 사용권</span>
-          <p>
-            등록한 1개의 작품에만 사용할 수 있어 요. 등록한 작품명과 실제 사용
-            작품명이 반 드시 일치해야 해요. 등록한 작품을 작업하는 모든 작가가
-            사 용할 수 있어요.
-          </p>
-        </Box>
-      </BoxWrapper>
+      
+      
+        
       <Banner>
         <FaWonSign />
         <span>결제 금액</span>

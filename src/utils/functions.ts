@@ -1,4 +1,22 @@
-export function isUserLoggedIn() {
+import axios from "axios";
+
+export async function isUserLoggedIn() {
   const token = sessionStorage.getItem("accessToken");
-  return !!token; // 토큰이 있으면 true, 없으면 false 반환
+  if (token) {
+    try {
+      const res = await axios.get("/check", {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      });
+      if (res.status === 200) {
+        return true;
+      }
+    } catch (error) {
+      console.log("로그인바랍니다.");
+
+      return false;
+    }
+  }
+  return false;
 }

@@ -178,7 +178,6 @@ const HistoryWrapper = styled.div`
   margin-top: 72px;
 `;
 
-
 const ProfilePic = styled.div`
   font-size: 40px;
 `;
@@ -213,8 +212,8 @@ const HistoryElementBox = styled.div`
   padding: 15px 0;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   font-size: 14px;
 
   &:last-child {
@@ -229,7 +228,6 @@ const ErrorMessage = styled.p`
 
 const ListItem = styled.li`
   display: flex;
-  align-items: center;
   margin-bottom: 10px;
 `;
 
@@ -357,7 +355,10 @@ const Profile = () => {
           <Title>회원정보</Title>
           <UserProfile>
             <UserProfileWrapper>
-              <ProfilePic> <CgProfile /></ProfilePic>
+              <ProfilePic>
+                {" "}
+                <CgProfile />
+              </ProfilePic>
 
               <UserProfileDetail>
                 <div>

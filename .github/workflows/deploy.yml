@@ -2,10 +2,10 @@ name: Docker Image 만들고, EC2 배포
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -37,3 +37,4 @@ jobs:
           script: |
             docker kill $(docker ps -qf expose=80) 2> /dev/null || echo 'No container running on port 80'
             docker run -d -p 80:8080 ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}
+            

@@ -124,7 +124,7 @@ const AllItemsPage = () => {
   const pageTitle = search
     ? `검색 결과: ${search}`
     : category
-    ? `카테고리: ${category}`
+    ? `${category} 요리/반찬 목록`
     : "전체 상품 목록";
 
   return (

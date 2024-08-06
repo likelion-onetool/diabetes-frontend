@@ -34,7 +34,7 @@ const UserProfile = styled.div`
 const UserProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-top:10px;
+  padding-top: 10px;
 `;
 
 const UserProfileDetail = styled.div`
@@ -47,8 +47,7 @@ const UserProfileDetail = styled.div`
 `;
 
 const LogOutButton = styled.button`
-  width: 65px;
-  height: 26px;
+  padding: 10px 8px;
   border: 1.5px solid red;
   border-radius: 20px;
   color: red;
@@ -455,10 +454,11 @@ const Profile = () => {
               <Button type="button">취소</Button>
             </ButtonWrapper>
           </Form>
-    <WithDrawWrapper>
-          <WithDrawButton onClick={() => deleteUser()}>
-            회원 탈퇴하기 {">>"}
-          </WithDrawButton></WithDrawWrapper>
+          <WithDrawWrapper>
+            <WithDrawButton onClick={() => deleteUser()}>
+              회원 탈퇴하기 {">>"}
+            </WithDrawButton>
+          </WithDrawWrapper>
           <HistoryWrapper>
             <HitoryTitle>
               <span>최근 주문 내역</span>

@@ -1,5 +1,6 @@
 # 📖 당료병 환자를 위한 건강식 간편 구독서비스, 원툴 README
-[Uploading 원툴_세종대.pdf…]()
+[원툴_세종대.pdf](https://github.com/user-attachments/files/16509744/_.pdf)
+
 
 - 배포 URL : http://www.onetool.co.kr
 (회원가입이 가능합니다.)

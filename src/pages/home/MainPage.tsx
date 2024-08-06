@@ -386,7 +386,7 @@ const MainPage = () => {
                   </HorizontalElementContainer>
                   <HorizontalElementContainer>
                     <HorizontalBannerTitle>
-                      당뇨병 관리 식단 서비스, ONETOOL 활용법
+                      당뇨병 관리 맞춤 식단 서비스, ONETOOL 활용법
                     </HorizontalBannerTitle>
                     <ButtonWrapper>
                       <Link to={"/faq"}>

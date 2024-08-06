@@ -62,7 +62,7 @@ const LeftSidebar = () => {
         <CategoryContainer>
           <MainCategoryContainer>
             <Category to={"/items"} active={false}>
-              전체
+              전체 상품
             </Category>
           </MainCategoryContainer>
 

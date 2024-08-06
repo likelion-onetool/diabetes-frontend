@@ -252,14 +252,7 @@ const ShoppingCart = () => {
       <Container>
         <Wrapper>
           <Title>장바구니</Title>
-          <SelectButtons>
-            <CheckBoxStyled
-              type="checkbox"
-              onChange={ToggleAllCheck}
-              checked={allChecked}
-            />
-            <Label>전체선택</Label>
-          </SelectButtons>
+          <SelectButtons></SelectButtons>
           <MainSection>
             <CartItems>
               {items.map((item, index) => (

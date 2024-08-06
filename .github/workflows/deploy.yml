@@ -25,7 +25,6 @@ jobs:
         run: |
           docker login
           ${{secrets.DOCKER_USERNAME}}
-          ${{secrets.DOCKER_PASSWORD}}
           docker build -t ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}} .
           docker push ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}
 

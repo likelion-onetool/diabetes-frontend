@@ -4,6 +4,8 @@ import router from "./Route";
 import { createGlobalStyle } from "styled-components";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
+import { HelmetProvider } from "react-helmet-async";
+import MetaTag from "./components/MetaTag";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
@@ -98,8 +100,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <>
     <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <RouterProvider router={router} />
+      <HelmetProvider>
+        <GlobalStyle />
+        <MetaTag />
+        <RouterProvider router={router} />
+      </HelmetProvider>
     </QueryClientProvider>
   </>
 );

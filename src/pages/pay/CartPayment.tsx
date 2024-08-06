@@ -13,6 +13,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { getCartItems, getDetailItem } from "../../api";
 import { ICart } from "./ShoppingCart";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 const Title = styled.span`
   font-size: 22px;
@@ -30,7 +31,7 @@ const Banner = styled.div`
   gap: 6px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -274,13 +275,30 @@ const FamLink = styled(Link)`
   color: #4e4eff;
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
 interface CheckedItems {
   terms: boolean;
   productInfo: boolean;
   emailConfirm: boolean;
 }
 
+interface IForm {
+  name: string;
+  phone_num: string;
+  email: string;
+}
+
 const CartPayment = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>();
   const [cardToggle, setCardToggle] = useState(false);
   const queryClient = useQueryClient();
 
@@ -340,7 +358,7 @@ const CartPayment = () => {
     },
     {
       onSuccess: (res) => {
-        if (res?.status === 200) {
+        if (res && res.status === 200) {
           queryClient.invalidateQueries(["user"]);
           navigate("/payment/success");
         }
@@ -384,7 +402,7 @@ const CartPayment = () => {
 
   if (data && typeof data.result !== "string") {
     return (
-      <Wrapper>
+      <Wrapper onSubmit={handleSubmit(handlePurchaseClick)}>
         <Title>주문결제</Title>
         <Banner>
           <LuBox />
@@ -408,15 +426,46 @@ const CartPayment = () => {
         <Form>
           <FormGroup>
             <Label>주문자명</Label>
-            <Input type="text" placeholder="(예시) 홍길동" />
+            <Input
+              type="text"
+              placeholder="(예시) 홍길동"
+              {...register("name", { required: "이름을 입력해주세요." })}
+            />
+            {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
           </FormGroup>
           <FormGroup>
             <Label>휴대폰 번호</Label>
-            <Input type="text" placeholder="휴대폰 번호" />
+            <Input
+              type="text"
+              placeholder="휴대폰 번호"
+              {...register("phone_num", {
+                required: "휴대폰 번호는 필수 입력 항목입니다.",
+                pattern: {
+                  value: /^010\d{8}$/,
+                  message: "전화번호 형식에 맞게 입력해주세요. 예: 01012345678",
+                },
+              })}
+            />
+            {errors.phone_num && (
+              <ErrorMessage>{errors.phone_num.message}</ErrorMessage>
+            )}
           </FormGroup>
           <FormGroup>
             <Label>이메일</Label>
-            <Input type="text" placeholder="example@example.com" />
+            <Input
+              type="text"
+              placeholder="example@example.com"
+              {...register("email", {
+                required: "이메일은 필수 입력 항목입니다.",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "유효한 이메일 주소를 입력해주세요.",
+                },
+              })}
+            />
+            {errors.email && (
+              <ErrorMessage>{errors.email.message}</ErrorMessage>
+            )}
           </FormGroup>
         </Form>
 
@@ -495,9 +544,7 @@ const CartPayment = () => {
           </div>
         </CheckBoxWrapper>
         <ButtonWrapper>
-          <PurchaseButton onClick={handlePurchaseClick}>
-            결제하기
-          </PurchaseButton>
+          <PurchaseButton>결제하기</PurchaseButton>
         </ButtonWrapper>
       </Wrapper>
     );

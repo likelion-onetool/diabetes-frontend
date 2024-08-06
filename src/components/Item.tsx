@@ -80,11 +80,6 @@ const Item = ({ item, checked, onCheck }: ItemProps) => {
 
   return (
     <CartItem>
-      <CheckBoxStyled
-        type="checkbox"
-        checked={checked}
-        onChange={() => onCheck(item)}
-      />
       <ItemImage src={item.diabetesImg} alt={item.diabetesName} />
       <ItemDetails>
         <ItemName>{item.diabetesName}</ItemName>

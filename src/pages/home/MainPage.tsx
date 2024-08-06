@@ -391,7 +391,7 @@ const MainPage = () => {
                     <ButtonWrapper>
                       <Link to={"/faq"}>
                         <UseButton>
-                          <span>문의사항 작성하기</span>
+                          <span>자주 묻는 질문들</span>
                           <div>
                             <FaqIcon />
                             <i>&rarr;</i>

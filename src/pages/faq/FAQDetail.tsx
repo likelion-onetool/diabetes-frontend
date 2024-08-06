@@ -1,62 +1,72 @@
 import styled from "styled-components";
 import { Title, Wrapper as FAQWrapper } from "./FAQ"; // FAQ에서 export한 Title과 Wrapper를 import합니다.
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FaqBackButton from "./components/FaqBackButton";
+import { faqData } from "../../utils/data";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+`;
+
+const Question = styled.h3`
+  color: #5cd65c;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
 `;
 
 const Answer = styled.div`
   padding: 12px;
   line-height: 1.6;
+  border-left: 4px solid #5cd65c;
+  background-color: #f9fff9;
+  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 `;
 
+const StyledFaqBackButton = styled(FaqBackButton)`
+  margin-top: 20px;
+  background-color: #5cd65c;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #4bb752;
+  }
+`;
+
+interface IFaqDetail {
+  id: number;
+  question: string;
+  answer: string;
+}
+
 const FAQDetail = () => {
-  // 예시로 사용할 질문과 답변
-  const faqData = [
-    {
-      id: 1,
-      question: "제품 배송은 어떻게 이루어지나요?",
-      answer:
-        "저희는 배송을 국내외 모두 지원하며, 배송은 보통 주문 완료 후 1-3일 정도 소요됩니다.",
-    },
-    {
-      id: 2,
-      question: "환불 정책에 대해 알고 싶습니다.",
-      answer:
-        "환불은 제품 수령 후 7일 이내에 신청 가능하며, 제품이 사용되지 않았고 원래 포장이 손상되지 않았을 경우 가능합니다.",
-    },
-    {
-      id: 3,
-      question: "제품 보증 기간은 어떻게 되나요?",
-      answer:
-        "저희 제품은 보통 1년 보증 기간을 제공합니다. 보증 기간 내에 제품에 문제가 발생할 경우 무상으로 수리 혹은 교환해드립니다.",
-    },
-    {
-      id: 4,
-      question: "상품 재고 문의를 할 수 있는 방법은 무엇인가요?",
-      answer:
-        "상품 재고에 대한 문의는 고객센터를 통해 전화나 이메일로 문의해주시면 됩니다.",
-    },
-  ];
+  const params = useParams();
+  const id = Number(params.id);
+  const data: IFaqDetail[] = faqData;
+
+  const faqDetail = data[id - 1]; // Array index는 0부터 시작하므로 id - 1로 접근
 
   return (
     <Container>
       <Title>문의사항</Title>
       <FAQWrapper>
-        {faqData.map((faq) => (
-          <div key={faq.id}>
-            <h3>{faq.question}</h3>
-            <Answer>{faq.answer}</Answer>
-          </div>
-        ))}
+        <>
+          <Question>Q. {faqDetail?.question}</Question>
+          <Answer>A : {faqDetail?.answer}</Answer>
+        </>
       </FAQWrapper>
-      <Link to={"/faq"}>
-        <FaqBackButton>&larr; 뒤로가기</FaqBackButton>
+      <Link to="/faq">
+        <StyledFaqBackButton>&larr; 뒤로가기</StyledFaqBackButton>
       </Link>
     </Container>
   );

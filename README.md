@@ -1,6 +1,5 @@
 # 📖 당료병 환자를 위한 건강식 간편 구독서비스, 원툴 README
-
-[사진]()
+[Uploading 원툴_세종대.pdf…]()
 
 - 배포 URL : http://www.onetool.co.kr
 (회원가입이 가능합니다.)
@@ -22,8 +21,7 @@
 
 | **강인권** | **조형준** | **윤성원** | **이동훈** | **정다영** |
 | :------: |  :------: | :------: | :------: | :------: |
-| [<img src="https://avatars.githubusercontent.com/u/105264785?v=4" height=150 width=150> <br/> @tnqkr3494](https://github.com/tnqkr3494) | [<img src="https://avatars.githubusercontent.com/u/157940718?v=4" height=150 width=150> <br/> @chocheeko](https://github.com/chocheeko) | [<img src="https://avatars.githubusercontent.com/u/63222221?v=4" height=150 width=150> <br/> @mete0rfish](https://github.com/mete0rfish) | [<img src="https://avatars.githubusercontent.com/u/123933574?v=4" height=150 width=150> <br/> @LEEDONGH00N](https://github.com/LEEDONGH00N) |
- [<img src="https://avatars.githubusercontent.com/u/92675692?v=4" height=150 width=150> <br/> @day024](https://github.com/day024) |
+| [<img src="https://avatars.githubusercontent.com/u/105264785?v=4" height=150 width=150> <br/> @tnqkr3494](https://github.com/tnqkr3494) | [<img src="https://avatars.githubusercontent.com/u/157940718?v=4" height=150 width=150> <br/> @chocheeko](https://github.com/chocheeko) | [<img src="https://avatars.githubusercontent.com/u/63222221?v=4" height=150 width=150> <br/> @mete0rfish](https://github.com/mete0rfish) | [<img src="https://avatars.githubusercontent.com/u/123933574?v=4" height=150 width=150> <br/> @LEEDONGH00N](https://github.com/LEEDONGH00N) | [<img src="https://avatars.githubusercontent.com/u/92675692?v=4" height=150 width=150> <br/> @day024](https://github.com/day024) |
 
 </div>
 

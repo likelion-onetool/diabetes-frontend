@@ -24,7 +24,6 @@ jobs:
       - name: Docker 이미지 만들고 Dockerhub에 푸시
         run: |
           docker login
-          ${{secrets.DOCKER_USERNAME}}
           docker build -t ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}} .
           docker push ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}
 

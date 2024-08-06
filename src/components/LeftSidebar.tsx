@@ -74,7 +74,6 @@ const LeftSidebar = () => {
               육류 요리/반찬
             </Category>
           </MainCategoryContainer>
-
           <MainCategoryContainer>
             <Category
               to={`/items/c?category=${"해산물"}&page=${0}`}

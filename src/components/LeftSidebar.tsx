@@ -7,7 +7,7 @@ interface CategoryProps {
 
 const SidebarContainer = styled.div`
   min-width: 200px;
-  padding: 40px 40px 48px 40px;
+  padding: 10px 40px 48px 40px;
   margin-left: -10px;
   border-right: 1px solid #cccccc;
 `;

@@ -24,7 +24,7 @@ const ContentContainer = styled.div`
 
 const DetailContainer = styled.div`
   width: 100%;
-  padding: 48px 40px;
+  padding: 10px 40px;
 `;
 
 const BannersContainer = styled.div`

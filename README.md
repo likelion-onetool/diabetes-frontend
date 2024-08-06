@@ -31,7 +31,7 @@
 
 ## 1. 개발 환경
 
-- Front : HTML, React, Typescript
+- Front : React, Typescript
 - Back-end : Spring Boot, MySQL
 - 버전 및 이슈관리 : Github, Github Issues, Github Project
 - 협업 툴 : Discord, Notion
@@ -43,15 +43,33 @@
 
 ## 2. 채택한 개발 기술과 브랜치 전략
 
-### React, styled-component
+### React, Typescript, styled-component, framer-motion, react-router-dom, react-hook-form, react-query
 
-- React
+- React 
     - 컴포넌트화를 통해 추후 유지보수와 재사용성을 고려했습니다.
     - 유저 배너, 상단과 하단 배너 등 중복되어 사용되는 부분이 많아 컴포넌트화를 통해 리소스 절약이 가능했습니다.
-- styled-component
+
+- Styled-component, framer-motion
     - props를 이용한 조건부 스타일링을 활용하여 상황에 알맞은 스타일을 적용시킬 수 있었습니다.
     - 빌드될 때 고유한 클래스 이름이 부여되어 네이밍 컨벤션을 정하는 비용을 절약할 수 있었습니다.
-    - S dot naming을 통해 일반 컴포넌트와 스타일드 컴포넌트를 쉽게 구별하도록 했습니다.
+
+
+- Typescript
+    - Javascript에서 생기는 여러 타입오류들을 막기위해 언어를 Typescript로 구현하였습니다.
+    - 백엔드에서 response값으로 받아오는 data들의 구조를 정의해서 사용하기 쉽게 하였습니다.
+
+- React-hook-form
+    - 백엔드로 제출할 form 처리를 편리하게 하기 위해 이 라이브러리를 사용하였습니다.
+
+
+- React-router-dom
+    - 라우팅 기능 구현을 위해 react-router-dom을 사용하였습니다.
+
+
+- React-query
+    - API요청 최적화, data 캐싱을 위해 react-query를 사용하였습니다.
+    - useQuery, useMutation등의 기능을 통해 사용자의 경험을 개선하도록 노력하였습니다.
+
     
 ### Github Actions
 - CI/CD 제공 툴 중 Jenkins과 Github Actions 중 선택하였습니다.
@@ -74,8 +92,15 @@
 ### 🍊강인권
 
 - **UI**
+    1. 로그인, 회원가입, 아이디&비밀번호 찾기
+    2. 유저 프로필 페이지
+    3. 장바구니, 결제 관련 페이지
+    4. FAQ 페이지
   
 - **기능**
+    1. 백엔드와 API통신
+    2. react-query를 이용한 최적화
+    3. 페이지별 기능 로직 구현
     
 <br>
     
@@ -124,4 +149,10 @@
 <br>
 
 ## 6. 서비스 제공 기능
+- 로그인, 로그아웃, 회원가입, 아이디&비밀번호 찾기
+-  유저 프로필 조희, 수정, 탈퇴, 구매했던 아이템 조회
+- 아이템 검색, 카테고리별 아이템 조회, pagination
+- 아이템 장바구니에 담기, 장바구니에서 삭제
+- 아이템 구매
+- 자주묻는질문 페이지
 

@@ -18,30 +18,31 @@ const TopNavBarContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 220px;
+  width: 250px;
   height: auto;
   margin-left: -15px;
 `;
 
 const SearchBar = styled.input`
-  width: 832px;
+  width: 900px;
   height: 46px;
-  border-radius: 8px;
-  border: 1px solid #e8e8e8;
+  border-radius: 50px;
+  border: 3px solid #dadada;
   padding: 26px;
   font-size: 16px;
-  margin-left: -30px;
+  margin-left: -80px;
 `;
 
 const Icons = styled.div`
   width: 64px;
   height: 128px;
   padding: 11px 0px;
-  gap: 16px;
+  gap: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
 `;
 
 interface IForm {
@@ -83,16 +84,16 @@ const TopNavBar = () => {
           <>
             <Link to="/cart">
               <PiShoppingCartSimpleBold
-                style={{ width: "22px", height: "22px" }}
+                style={{ width: "26px", height: "26px"}}
               />
             </Link>
             <Link to="/users/profile">
-              <FaRegUser style={{ width: "18px", height: "18px" }} />
+              <FaRegUser style={{ width: "23px", height: "23px" }} />
             </Link>
           </>
         ) : (
           <Link to="/users/login">
-            <FaRegUser style={{ width: "18px", height: "18px" }} />
+            <FaRegUser style={{ width: "23px", height: "23px" }} />
           </Link>
         )}
       </Icons>

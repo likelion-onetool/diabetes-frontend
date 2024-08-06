@@ -20,7 +20,6 @@ const SnsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px dashed black;
   gap: 12px;
   padding-bottom: 12px;
   font-size: 12px;
@@ -47,9 +46,17 @@ const Form = styled.form`
 `;
 
 const Title = styled.span`
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 30px;
+  width: 310px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 30px;
+  padding: 20px 10px;
+  margin-top: -20px;
+  margin-bottom: -13px;
+  background-color: lightgreen;
 `;
 
 const AuthButton = styled.button`
@@ -121,15 +128,19 @@ const CardTermsWrapper = styled.div`
 `;
 
 const JoinButton = styled.button`
-  width: 343px;
-  height: 48px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #5cd65c;
   font-size: 14px;
   font-weight: 700;
+  line-height: 30px;
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: -10px;
+  background-color: lightgreen;
+  &:hover {
+    background-color: #5ce65c;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -224,7 +235,9 @@ const Join = () => {
   };
 
   return (
+    
     <Container>
+      <Title>원툴에 오신 것을 환영합니다!</Title>
       <SnsWrapper>
         <span>SNS 계정으로 가입하기</span>
         <GoogleButton>
@@ -263,8 +276,9 @@ const Join = () => {
           </svg>
         </GoogleButton>
       </SnsWrapper>
+      
       <Form onSubmit={handleSubmit(onValid)}>
-        <Title>원툴에 오신것을 환영합니다!</Title>
+        
         <Wrapper>
           <span>아이디(이메일)</span>
           <Input
@@ -358,9 +372,9 @@ const Join = () => {
           <Selector
             {...register("field", { required: "관련 직종을 선택해주세요." })}
           >
-            <option value="student">학생</option>
-            <option value="architect">건축관련 직종</option>
-            <option value="etc">그외</option>
+            <option value="individual">개인</option>
+            <option value="company">단체</option>
+            <option value="etc">그 외</option>
           </Selector>
           {errors.field && <ErrorMessage>{errors.field.message}</ErrorMessage>}
         </Wrapper>

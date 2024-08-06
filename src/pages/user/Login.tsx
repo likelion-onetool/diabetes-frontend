@@ -40,8 +40,8 @@ export const Button = styled.button`
 `;
 
 const LoginButton = styled(Button)`
-  background-color: #212b36;
-  color: #ffffff;
+  background-color: #5ce65c;
+  color: black;
   font-weight: 700;
   margin-bottom: 24px;
 `;

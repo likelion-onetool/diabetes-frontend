@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker 빌드 및 푸시
-      - run: |
+        run: |
           docker build -t ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}} .
           docker push ${{secrets.DOCKER_REPO}}/diabet-app:${{github.sha}}
 

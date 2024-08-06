@@ -1,8 +1,5 @@
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
 
 interface CategoryProps {
   active: boolean;
@@ -10,7 +7,7 @@ interface CategoryProps {
 
 const SidebarContainer = styled.div`
   min-width: 200px;
-  padding: 24px 40px 48px 40px;
+  padding: 40px 40px 48px 40px;
   margin-left: -10px;
   border-right: 1px solid #cccccc;
 `;
@@ -59,17 +56,9 @@ const Category = styled(Link)<CategoryProps>`
 `;
 
 const LeftSidebar = () => {
-  const [categoryToggle, setCategoryToggle] = useState<boolean>(true);
-
   return (
     <SidebarContainer>
       <HorizontalBorder>
-        <CategoryHeader>
-          <span>카테고리</span>
-          <button onClick={() => setCategoryToggle((prev) => !prev)}>
-            {categoryToggle ? <IoIosArrowUp /> : <IoIosArrowDown />}
-          </button>
-        </CategoryHeader>
         <CategoryContainer>
           <MainCategoryContainer>
             <Category to={"/items"} active={false}>

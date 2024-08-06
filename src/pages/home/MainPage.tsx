@@ -193,7 +193,7 @@ const PartnerBrandWrapper = styled.div`
   margin-bottom: 60px;
 `;
 
-const BrandLink = styled(Link)`
+const BrandLink = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -426,14 +426,14 @@ const MainPage = () => {
                   ONETOOL 파트너 브랜드
                 </HorizontalBannerTitle>
                 <PartnerBrandWrapper>
-                  <BrandLink to={"/search/onetool"}>
+                  <BrandLink>
                     <BrandLogo src="/onetool-logo.png" alt="" />
                     <BrandName>ONETOOL</BrandName>
                     <BrandProductCount>20개 상품</BrandProductCount>
                   </BrandLink>
-                  <BrandLink to={"/search/onetool"}>
+                  <BrandLink>
                     <BrandLogo src="/onetool-logo.png" alt="" />
-                    <BrandName>ONETOOL</BrandName>
+                    <BrandName>TWOTOOL</BrandName>
                     <BrandProductCount>20개 상품</BrandProductCount>
                   </BrandLink>
                 </PartnerBrandWrapper>

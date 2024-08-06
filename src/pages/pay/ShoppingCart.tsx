@@ -23,6 +23,7 @@ const Circle = styled.div`
   justify-content: center;
   color: #aeaeff;
   font-size: 64px;
+
 `;
 
 const Empty = styled.span`
@@ -121,7 +122,7 @@ const SummaryText = styled.div`
   }
 
   &:nth-of-type(2) {
-    color: #4e4eff;
+    color: green;
   }
 `;
 
@@ -148,13 +149,14 @@ const Button = styled.button`
 `;
 
 const OrderButton = styled(Button)`
-  background-color: #4e4eff;
+  background-color: green;
   color: white;
 `;
 
 const ShoppingButton = styled(Button)`
   border: 1px solid green;
   color: green;
+  margin-top: -5px;
 `;
 
 export const CheckBoxStyled = styled.input`
@@ -274,7 +276,7 @@ const ShoppingCart = () => {
                 <ToTalPrice>{formatPrice(cartDetail.totalPrice)}원</ToTalPrice>
               </SummaryText>
               <OrderButton onClick={() => navigate("/payment/cart")}>
-                주문하기
+                결제하기
               </OrderButton>
               <Link to="/items">
                 <ShoppingButton>계속 쇼핑하기</ShoppingButton>
